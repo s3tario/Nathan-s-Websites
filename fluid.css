@@ -39,10 +39,9 @@ html.theme-switching::view-transition-old(root) { animation: none; }
 /* ---------- reveals: longer, softer, staggered by fluid.js ---------- */
 [data-reveal] {
   transform: translateY(34px) scale(0.985);
-  filter: blur(6px);
-  transition: opacity 1.1s var(--ease-out) var(--rd, 0ms), transform 1.2s var(--ease-out) var(--rd, 0ms), filter 0.9s var(--ease-out) var(--rd, 0ms) !important;
+  transition: opacity 1.1s var(--ease-out) var(--rd, 0ms), transform 1.2s var(--ease-out) var(--rd, 0ms) !important;
 }
-[data-reveal].in { transform: none; filter: none; }
+[data-reveal].in { transform: none; }
 
 /* ---------- controls: springy hover and press ---------- */
 .hv-cta, .hv-ghost, .hv-social, .hv-copy, .hv-card, .hv-brd, .hv-white, [data-navcta], [data-navlink] {
@@ -95,3 +94,8 @@ html.theme-switching::view-transition-old(root) { animation: none; }
   .hv-cta:hover, .hv-ghost:hover, .hv-social:hover, .hv-card:hover, .proj-row:hover,
   #row-companies > div > span:hover, #row-tools > div > span:hover, .slot:hover img, .zoomable:hover { transform: none !important; }
 }
+
+/* ---------- performance: glass cards sit on a flat background, so their backdrop blur
+   costs a lot while scrolling and changes nothing you can see. The nav pill, theme button
+   and hero buttons keep theirs, since content moves behind them. ---------- */
+[style*="backdrop-filter: var(--glass-blur)"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }

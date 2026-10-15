@@ -97,13 +97,20 @@
   });
 
   /* ---------- images unveil with a wipe ---------- */
+  /* a fully clipped element never counts as visible, so watch its (unclipped) container */
   var wipeIO = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('wipe-in'); wipeIO.unobserve(en.target); } });
-  }, { threshold: 0.2 });
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      en.target.__wipes.forEach(function (el) { el.classList.add('wipe-in'); });
+      wipeIO.unobserve(en.target);
+    });
+  }, { threshold: 0.15 });
   function addWipe(el, delay) {
     el.classList.add('wipe');
     if (delay) el.style.setProperty('--wd', delay + 'ms');
-    wipeIO.observe(el);
+    var host = el.parentElement;
+    if (!host.__wipes) { host.__wipes = []; wipeIO.observe(host); }
+    host.__wipes.push(el);
   }
   $$('#about img[src*="nate-professional"]').forEach(function (img) { addWipe(img, 0); });
   /* about thumbnails arrive after the photo loader fills them */
@@ -200,56 +207,100 @@
     });
   }
 
+  /* ---------- animated borders pause while off screen ---------- */
+  var ringIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      en.target.__rings.forEach(function (r) { r.style.animationPlayState = en.isIntersecting ? 'running' : 'paused'; });
+    });
+  });
+  $$('span[aria-hidden="true"]').forEach(function (sp) {
+    var anim = sp.getAttribute('style') || '';
+    if (!/ledSpin|ringSpin|mote|cueTravel/.test(anim)) return;
+    var host = sp.parentElement;
+    if (host.id === 'nav' || host.id === 'theme-toggle') return;   /* fixed elements are always visible */
+    if (!host.__rings) { host.__rings = []; ringIO.observe(host); }
+    host.__rings.push(sp);
+  });
+
   /* ---------- one loop for everything that follows scroll or pointer ---------- */
   var lastY = window.scrollY, lastT = performance.now(), vel = 0;
+  /* layout is measured once (and again when the page resizes), never inside the frame loop,
+     so scrolling never forces the browser to recalculate layout */
+  var M = { docH: 0, vh: innerHeight, rail: null, lotus: null, mq: null };
+  function docTop(el) { return el.getBoundingClientRect().top + window.scrollY; }
+  function measure() {
+    M.vh = innerHeight;
+    M.docH = document.documentElement.scrollHeight;
+    marquee.forEach(function (m) { m.half = m.el.scrollWidth / 2; });
+    if (mqWrap) { M.mq = { top: docTop(mqWrap), h: mqWrap.offsetHeight }; }
+    if (tl) { M.rail = { top: docTop(tl.rail), h: tl.rail.offsetHeight || 1 }; }
+    if (lotusImg) { var host = lotusImg.parentElement; M.lotus = { top: docTop(host), h: host.offsetHeight }; }
+  }
+  measure();
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+  if ('ResizeObserver' in window) new ResizeObserver(function () { measure(); }).observe(document.body);
+
+  var lastBar = -1, lastFill = -1, lastLotus = '', dotState = [];
   function frame(now) {
     requestAnimationFrame(frame);
     var dt = Math.min(64, now - lastT) / 1000; lastT = now;
-    var y = window.scrollY, vh = innerHeight;
+    var y = window.scrollY, vh = M.vh;
     var v = lenis ? lenis.velocity : (y - lastY) / Math.max(dt, 0.001) / 60;
     lastY = y;
     vel = lerp(vel, v || 0, 0.15);
 
     /* progress */
-    var max = document.documentElement.scrollHeight - vh;
-    barFill.style.transform = 'scaleX(' + (max > 0 ? clamp(y / max, 0, 1) : 0).toFixed(4) + ')';
-
+    var max = M.docH - vh, bp = max > 0 ? Math.round(clamp(y / max, 0, 1) * 1000) : 0;
+    if (bp !== lastBar) { lastBar = bp; barFill.style.transform = 'scaleX(' + (bp / 1000) + ')'; }
 
     /* hero lotus pointer easing; old ripples expire */
     FX.s = lerp(FX.s, FX.ts, 0.07);
     FX.x = lerp(FX.x, FX.tx, 0.16); FX.y = lerp(FX.y, FX.ty, 0.16);
     while (FX.ripples.length && now - FX.ripples[0].t > 1800) FX.ripples.shift();
 
-    /* marquee */
-    if (marquee.length) {
+    /* marquee: only moves while it is on screen */
+    if (marquee.length && M.mq && M.mq.top - y < vh + 50 && M.mq.top + M.mq.h - y > -50) {
       mqGate = lerp(mqGate, mqHover ? 0 : 1, 0.08);
       var boost = 1 + Math.min(Math.abs(vel) * 0.35, 7);
       skew = lerp(skew, clamp(-vel * 0.5, -7, 7), 0.1);
-      marquee.forEach(function (m) {
-        var half = m.el.scrollWidth / 2;
-        if (!half) return;
+      for (var mi = 0; mi < marquee.length; mi++) {
+        var m = marquee[mi], half = m.half;
+        if (!half) continue;
         m.off = (m.off + (half / m.secs) * boost * mqGate * dt) % half;
         var x = m.dir > 0 ? -half + m.off : -m.off;
         m.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0) skewX(' + skew.toFixed(2) + 'deg)';
-      });
+      }
     }
 
     /* timeline */
-    if (tl) {
-      var r = tl.rail.getBoundingClientRect();
-      var p = clamp((vh * 0.62 - r.top) / (r.height || 1), 0, 1);
-      tl.fill.style.transform = 'scaleY(' + p.toFixed(4) + ')';
-      for (var i = 0; i < tl.dots.length; i++) tl.dots[i].classList.toggle('on', p >= tl.at[i] - 0.005);
+    if (tl && M.rail) {
+      var top = M.rail.top - y;
+      if (top < vh && top + M.rail.h > 0 || lastFill < 0) {
+        var pf = Math.round(clamp((vh * 0.62 - top) / M.rail.h, 0, 1) * 1000);
+        if (pf !== lastFill) {
+          lastFill = pf;
+          tl.fill.style.transform = 'scaleY(' + (pf / 1000) + ')';
+          for (var i = 0; i < tl.dots.length; i++) {
+            var on = pf / 1000 >= tl.at[i] - 0.005;
+            if (dotState[i] !== on) { dotState[i] = on; tl.dots[i].classList.toggle('on', on); }
+          }
+        }
+      }
     }
 
     /* anaeio lotus */
-    if (lotusImg) {
-      var lr = lotusImg.getBoundingClientRect();
-      if (lr.bottom > -100 && lr.top < vh + 100) {
-        var lp = clamp(1 - (lr.top + lr.height / 2) / vh, -0.2, 1.2) - 0.5;
-        lotusImg.style.rotate = (lp * 36).toFixed(2) + 'deg';
-        lotusImg.style.translate = '0 ' + (-lp * 46).toFixed(1) + 'px';
-        lotusImg.style.scale = (1 + Math.abs(vel) * 0.004).toFixed(3);
+    if (lotusImg && M.lotus) {
+      var lt = M.lotus.top - y;
+      if (lt + M.lotus.h > -100 && lt < vh + 100) {
+        var lp = clamp(1 - (lt + M.lotus.h / 2) / vh, -0.2, 1.2) - 0.5;
+        var key = (lp * 36).toFixed(1) + '|' + (Math.abs(vel) * 0.004).toFixed(3);
+        if (key !== lastLotus) {
+          lastLotus = key;
+          lotusImg.style.rotate = (lp * 36).toFixed(1) + 'deg';
+          lotusImg.style.translate = '0 ' + (-lp * 46).toFixed(1) + 'px';
+          lotusImg.style.scale = (1 + Math.abs(vel) * 0.004).toFixed(3);
+        }
       }
     }
   }

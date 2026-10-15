@@ -120,9 +120,7 @@
   [data-mark].filled { background: #ffffff; transition: background-color 0.4s ease; }
   [data-mark].filled .chip-mark { object-fit: contain; padding: 6px; }
   [data-wide] [data-mark].filled .chip-mark { padding: 3px 9px; }
-  [data-mark="logo-anaeio"].filled { background: transparent; }
-  [data-mark="logo-anaeio"].filled .chip-mark { object-fit: cover; padding: 0; }
-  html.dark [data-mark].filled:not([data-mark="logo-anaeio"]) { background: #eef5f6; }
+  html.dark .org-badge { border-color: transparent !important; }
   html.dark .tool-mark { background: color-mix(in srgb, var(--c) 58%, #ffffff) !important; }
 
   @media (max-width: 900px) {
@@ -621,8 +619,8 @@
   var DISC = 'position: relative; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line);';
   function companyChip(c) {
     var wide = c.slot === 'logo-nationalgrid' || c.slot === 'logo-comptia';   /* wordmark logos need a wider badge */
-    return '<span style="' + CHIP + '"><span style="' + DISC + ' background: ' + c.disc + ';' + (wide ? ' width: 74px; border-radius: 100px;' : '') + '"' + (wide ? ' data-wide="1"' : '') + '>' +
-      '<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--accent);">' + c.initials + '</span>' +
+    return '<span style="' + CHIP + '"><span class="org-badge" style="' + DISC + ' background: #ffffff;' + (wide ? ' width: 74px; border-radius: 100px;' : '') + '"' + (wide ? ' data-wide="1"' : '') + '>' +
+      '<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #0c7f8c;">' + c.initials + '</span>' +
       '<span data-mark="' + c.slot + '" style="position: absolute; inset: 0;"></span>' +
       '</span>' + c.name + '</span>';
   }

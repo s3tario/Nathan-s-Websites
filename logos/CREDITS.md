@@ -11,5 +11,6 @@ organisations and tools Nathan has worked with.
 | microsoft-word, microsoft-excel, microsoft-powerpoint, microsoft-teams | Simple Icons 11.15.0 | Microsoft Fluent UI assets licence (aka.ms/fluentui-assets-license) |
 | onshape, adobe-express | Arcticons (via @iconify-json/arcticons 1.2.40), stroke thickened | CC BY-SA 4.0 — © Arcticons contributors, github.com/Arcticons-Team/Arcticons |
 | logo-redcross | Drawn for this site: the Red Cross emblem (a red Greek cross) | — |
-| logo-anaeio | Made from anaeio's own lotus mark | — |
+| logo-anaeio | anaeio's own lotus mark, recoloured teal for the white badge | — |
 | logo-auburn | Auburn "AU" mark from github.com/klunn91/team-logos (NCAA/auburn.png) | Trademark of Auburn University |
+| logo-wpi | WPI seal, cropped from WPI_logo.png in github.com/Thartvigsen/wpi_latex_poster | Trademark of Worcester Polytechnic Institute |

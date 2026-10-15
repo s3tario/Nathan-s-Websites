@@ -40,13 +40,11 @@ file stays hidden (a project with no image shows its text full width).
 
 Organization logos work the same way in `logos/` — add a transparent PNG named
 after the slot and it replaces the monogram:
-`logo-nationalgrid`, `logo-auburn`, `logo-anaeio`, `logo-redcross` and `logo-comptia` are
-**filled**; still empty (they show initials): `logo-machado`, `logo-mlsc`, `logo-wpi`,
-`logo-wths`, `logo-medhigh`. Every tool chip has its mark. Sources and licences are in
+`logo-nationalgrid`, `logo-wpi`, `logo-auburn`, `logo-anaeio`, `logo-redcross` and
+`logo-comptia` are **filled**; still empty (they show initials): `logo-machado`, `logo-mlsc`,
+`logo-wths`, `logo-medhigh`. Every organisation badge is white in both themes, so a
+transparent PNG or SVG drops straight in. Every tool chip has its mark. Sources and licences are in
 `logos/CREDITS.md`.
-
-Transparent marks sit on a themed disc: `logo-anaeio` gets teal in light mode,
-`logo-auburn` gets white, and both go near-black in dark mode.
 
 Tool chips without a brand mark accept `logos/<name>.png` too — e.g.
 `canva.png`, `onshape.png`, `adobe-express.png`, `microsoft-word.png`.
