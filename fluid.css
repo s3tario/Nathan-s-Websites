@@ -1,0 +1,97 @@
+/* fluid.css — motion layer shared by index.html and resume.html.
+   Smooth scroll (Lenis), page transitions, springy controls, softer reveals.
+   Everything here switches off for visitors who ask for reduced motion. */
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --spring-soft: cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    /* a real spring curve: quick start, small overshoot, settles */
+    --spring: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001);
+    --spring-soft: linear(0, 0.009, 0.037 2.9%, 0.142 6.2%, 0.546 17.4%, 0.731 23.6%, 0.86 30%, 0.945 37.2%, 0.99 45.6%, 1.006 54.2%, 1.006 65.2%, 1);
+  }
+}
+
+/* ---------- smooth scroll ---------- */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* ---------- page transitions ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 0.32s var(--ease-out) both page-out; }
+::view-transition-new(root) { animation: 0.55s var(--ease-out) both page-in; }
+@keyframes page-out { to { opacity: 0; transform: translateY(-14px); filter: blur(4px); } }
+@keyframes page-in { from { opacity: 0; transform: translateY(18px); filter: blur(4px); } }
+/* fallback for browsers without cross-document view transitions */
+html.page-entering body { animation: 0.55s var(--ease-out) both page-in; }
+html.page-leaving body { transition: opacity 0.26s ease, transform 0.3s var(--ease-out), filter 0.3s ease; opacity: 0; transform: translateY(-14px); filter: blur(4px); }
+
+/* theme switch: the new theme opens out of the toggle as a circle */
+html.theme-switching::view-transition-new(root) { animation: 0.7s var(--ease-out) both theme-reveal; }
+html.theme-switching::view-transition-old(root) { animation: none; }
+@keyframes theme-reveal { from { clip-path: circle(0 at var(--tx, 100%) var(--ty, 0%)); } to { clip-path: circle(var(--tr, 150vmax) at var(--tx, 100%) var(--ty, 0%)); } }
+
+/* ---------- reveals: longer, softer, staggered by fluid.js ---------- */
+[data-reveal] {
+  transform: translateY(34px) scale(0.985);
+  filter: blur(6px);
+  transition: opacity 1.1s var(--ease-out) var(--rd, 0ms), transform 1.2s var(--ease-out) var(--rd, 0ms), filter 0.9s var(--ease-out) var(--rd, 0ms) !important;
+}
+[data-reveal].in { transform: none; filter: none; }
+
+/* ---------- controls: springy hover and press ---------- */
+.hv-cta, .hv-ghost, .hv-social, .hv-copy, .hv-card, .hv-brd, .hv-white, [data-navcta], [data-navlink] {
+  transition: transform 0.55s var(--spring), background-color 0.3s ease, color 0.25s ease, border-color 0.3s ease, box-shadow 0.4s ease !important;
+}
+.hv-cta:hover, .hv-ghost:hover { transform: translateY(-3px) !important; }
+.hv-social:hover { transform: translateY(-3px) !important; }
+.hv-card:hover { transform: translateY(-5px) !important; }
+[data-navcta]:hover { transform: translateY(-1px) scale(1.03); }
+.hv-cta:active, .hv-ghost:active, .hv-social:active, .hv-copy:active, .hv-card:active,
+.hv-brd:active, .hv-white:active, [data-navcta]:active, [data-navlink]:active {
+  transform: scale(0.95) !important;
+  transition-duration: 0.12s !important;
+}
+.hv-toggle { transition: transform 0.6s var(--spring), border-color 0.3s ease !important; }
+.hv-toggle:hover { transform: rotate(18deg) scale(1.06) !important; }
+.hv-toggle:active { transform: rotate(18deg) scale(0.9) !important; transition-duration: 0.12s !important; }
+
+/* organisation and tool chips lift when pointed at (the ticker pauses on hover) */
+#row-companies > div > span, #row-tools > div > span {
+  transition: transform 0.55s var(--spring), border-color 0.3s ease, background-color 0.3s ease;
+}
+#row-companies > div > span:hover, #row-tools > div > span:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent) !important;
+}
+/* interest pills */
+#about [style*="border-radius: 100px; padding: 8px 18px"] { transition: transform 0.5s var(--spring), border-color 0.3s ease; }
+#about [style*="border-radius: 100px; padding: 8px 18px"]:hover { transform: translateY(-3px); border-color: var(--accent); }
+
+/* ---------- projects: rows glide, panels unfold ---------- */
+.proj-row { transition: transform 0.55s var(--spring), padding 0.5s var(--ease-out); }
+.proj-row:hover { transform: translateX(6px); }
+.proj-row:active { transform: translateX(6px) scale(0.99); transition-duration: 0.12s; }
+[data-plus] { transition: transform 0.6s var(--spring) !important; }
+[data-panel] { transition: max-height 0.75s var(--ease-out) !important; }
+[data-panel] .proj-grid { opacity: 0; transform: translateY(-10px); transition: opacity 0.35s ease, transform 0.6s var(--ease-out); }
+.proj-row[aria-expanded="true"] + [data-panel] .proj-grid { opacity: 1; transform: none; transition: opacity 0.6s ease 0.12s, transform 0.8s var(--ease-out) 0.08s; }
+
+/* ---------- photos breathe a little on hover ---------- */
+.slot img, .zoomable { transition: transform 1.2s var(--ease-out); }
+.slot:hover img, .zoomable:hover { transform: scale(1.04); }
+.slot { isolation: isolate; }
+
+/* ---------- reduced motion: keep everything, drop the travel ---------- */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  [data-reveal] { transform: none !important; filter: none !important; }
+  html.page-entering body, html.page-leaving body { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+  .hv-cta:hover, .hv-ghost:hover, .hv-social:hover, .hv-card:hover, .proj-row:hover,
+  #row-companies > div > span:hover, #row-tools > div > span:hover, .slot:hover img, .zoomable:hover { transform: none !important; }
+}

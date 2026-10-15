@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nathan Setaro Resume</title>
+<meta name="description" content="Resume of Nathan Setaro, Industrial & Systems Engineering student at Auburn University.">
+<meta name="author" content="Nathan Setaro">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff; --surface: #ffffff; --ink: #0d2028; --muted: #5b7481;
+    --line: #d3dee4; --accent: #0c7f8c;
+    --glass: rgba(255,255,255,0.5); --glass-brd: rgba(255,255,255,0.9);
+    --glass-shadow: 0 24px 60px -26px rgba(21,70,88,0.20), 0 2px 8px rgba(21,70,88,0.04);
+    --glass-blur: blur(26px) saturate(185%);
+  }
+  html.dark {
+    --bg: #06161d; --surface: rgba(255,255,255,0.04); --ink: #e9f3f5; --muted: #8ba7b0;
+    --line: rgba(238,246,247,0.15); --accent: #4fd0de;
+    --glass: rgba(255,255,255,0.045); --glass-brd: rgba(255,255,255,0.09);
+    --glass-shadow: 0 24px 60px -26px rgba(0,0,0,0.6);
+    --glass-blur: blur(20px) saturate(130%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; }
+  body { font-family: 'Instrument Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; transition: background 0.4s ease, color 0.4s ease; }
+  a { color: var(--ink); text-decoration: none; transition: color 0.2s ease, border-color 0.2s ease; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--bg); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .hv-brd:hover { border-color: var(--accent) !important; }
+  .hv-white:hover { color: #fff !important; }
+  .navlabel { white-space: nowrap; }
+  @media (max-width: 700px) {
+    .navlabel { display: none; }
+  }
+
+  /* ---------- the resume sheet: a paper page in both themes ---------- */
+  .sheet-wrap { padding: clamp(10px, 2vw, 20px); border-radius: 26px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow); }
+  .sheet {
+    --paper-ink: #111111;
+    background: #ffffff; color: var(--paper-ink);
+    border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); border-radius: 8px;
+    font-family: "Times New Roman", Times, "Liberation Serif", Tinos, serif;
+    font-size: clamp(12.5px, 0.55vw + 10.4px, 14px); line-height: 1.32;
+    padding: clamp(26px, 6vw, 56px) clamp(18px, 8vw, 92px) clamp(30px, 6vw, 60px);
+    max-width: 816px; margin: 0 auto;
+  }
+  .sheet ::selection { background: #cdeef2; color: #111; }
+  .sheet a { color: inherit; }
+  .sheet a:hover { color: #0c7f8c; }
+  .sheet header { text-align: center; margin-bottom: 1.15em; }
+  .sheet h1 { font-weight: 400; font-size: 3.1em; letter-spacing: 0.09em; line-height: 1.1; color: #404040; margin-bottom: 0.35em; }
+  .sheet h1 { white-space: nowrap; font-size: min(3.1em, 6.4vw); }
+  @media (max-width: 480px) {
+    .sheet .contact { flex-direction: column; align-items: center; gap: 0.15em; }
+    .sheet .contact span[aria-hidden] { display: none; }
+  }
+  .sheet .contact { font-size: 1.07em; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.3em; }
+  .sheet h2 { font-size: 1.07em; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid #222; padding-bottom: 0.1em; margin: 0.95em 0 0.45em; }
+  .sheet .entry { margin-bottom: 0.5em; }
+  .sheet .row { display: flex; justify-content: space-between; align-items: baseline; gap: 0 1.5em; flex-wrap: wrap; }
+  .sheet h3 { font-size: 1em; font-weight: 700; }
+  .sheet .sub { font-style: italic; }
+  .sheet .when { font-style: italic; white-space: nowrap; margin-left: auto; }
+  .sheet ul { list-style: none; }
+  .sheet li { position: relative; padding-left: 1.05em; }
+  .sheet li::before { content: "•"; position: absolute; left: 0.25em; }
+  .sheet .flat li { padding-left: 0.85em; }
+  .sheet .flat li::before { left: 0; }
+  .sheet .proj h3 { margin-top: 0.12em; }
+  .sheet p b { font-weight: 700; }
+
+  /* ---------- print / PDF: just the sheet, on US Letter ---------- */
+  @page { size: letter; margin: 0; }
+  @media print {
+    html, body { background: #ffffff !important; }
+    .no-print, nav { display: none !important; }
+    main { padding: 0 !important; max-width: none !important; }
+    .sheet-wrap { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .sheet { border: 0; border-radius: 0; max-width: none; width: 8.5in; font-size: 9.1pt; line-height: 1.2; padding: 0.5in 0.95in 0.3in 1in; }
+    .sheet h1 { font-size: 3.15em; margin-bottom: 0.15em; }
+    .sheet .contact { font-size: 1.08em; }
+    .sheet header { margin-bottom: 0.8em; }
+    .sheet h2 { font-size: 1.1em; margin: 0.6em 0 0.38em; }
+    .sheet .entry { margin-bottom: 0.38em; }
+    .sheet a:hover { color: inherit; }
+    [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
+  }
+</style>
+<link rel="stylesheet" href="fluid.css">
+<script>try{if(sessionStorage.getItem("nds-theme")==="dark")document.documentElement.classList.add("dark");}catch(e){}</script>
+</head>
+<body>
+
+<div style="min-height: 100vh; min-height: 100svh; width: 100%; position: relative;">
+  <nav style="position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px clamp(16px, 4vw, 48px); background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid var(--line);">
+    <a href="index.html" style="font-family: 'Newsreader', serif; font-size: 19px; font-weight: 500; white-space: nowrap;">Nathan Setaro</a>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <a href="index.html" class="hv-brd" aria-label="Back to site" style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 8px 16px; border: 1px solid var(--line); border-radius: 100px;">← <span class="navlabel">Back to site</span></a>
+      <a href="assets/resume.pdf" download="Nathan Setaro Resume.pdf" class="hv-white" style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: var(--accent); padding: 8px 18px; border-radius: 100px; white-space: nowrap;">Download PDF</a>
+      <button id="theme-toggle" type="button" title="Dark mode" aria-label="Toggle dark mode" aria-pressed="false" class="hv-brd" style="width: 34px; height: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--line); background: var(--glass); cursor: pointer; padding: 0; transition: border-color 0.3s ease;">
+        <span id="theme-dot" style="width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--ink); background: linear-gradient(90deg, var(--ink) 0 50%, transparent 50% 100%); transform: rotate(0deg); transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main style="max-width: 960px; margin: 0 auto; padding: clamp(32px, 5vw, 56px) clamp(14px, 4vw, 48px) clamp(72px, 9vw, 110px); position: relative;">
+    <div class="no-print" style="display: flex; align-items: baseline; gap: 24px; margin-bottom: clamp(24px, 3.5vw, 36px);">
+      <p style="font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(34px, 2.2vw + 18px, 44px); letter-spacing: -0.02em; line-height: 1.2;" aria-hidden="true">Resume</p>
+      <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent);"></div>
+    </div>
+
+    <div class="sheet-wrap" data-reveal>
+      <article class="sheet" aria-label="Resume">
+        <header>
+          <h1 aria-label="Nathan Setaro">NATHAN SETARO</h1>
+          <p class="contact"><a href="mailto:setaronathan@gmail.com">setaronathan@gmail.com</a><span aria-hidden="true">|</span><a href="https://www.linkedin.com/in/setaro/">linkedin.com/in/setaro/</a><span aria-hidden="true">|</span>Auburn, AL</p>
+        </header>
+
+        <section>
+          <h2>Education</h2>
+          <div class="entry">
+            <h3>Auburn University</h3>
+            <div class="row"><p class="sub">Pre-Industrial &amp; Systems Engineering. ASCMA, TPED, NPSE, Men's Volleyball | GPA: 4.0</p><p class="when">Freshman</p></div>
+          </div>
+          <div class="entry">
+            <h3>Worcester Technical High School</h3>
+            <div class="row"><p class="sub">Information Support Services &amp; Networking. Rank: 3/330 | Weighted GPA: 4.6</p><p class="when"><span style="font-style: normal;">2022–2026</span> | Worcester, MA</p></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Experience</h2>
+          <div class="entry">
+            <h3>Clean Energy Technology Academy Intern</h3>
+            <p class="sub">National Grid</p>
+            <ul>
+              <li>Collaborated with a team of interns to research, design, and deliver a capstone presentation on clean energy technology.</li>
+              <li>Rotated through electric and gas sectors, gaining hands-on exposure to utility operations and infrastructure.</li>
+            </ul>
+          </div>
+          <div class="entry">
+            <h3>Reactive Support Intern</h3>
+            <p class="sub">Machado Consulting</p>
+            <ul>
+              <li>Deployed and configured computing devices for client organizations, ensuring systems were ready for end-user handoff.</li>
+              <li>Diagnosed and resolved technical issues, deployed software updates, and performed routine system maintenance.</li>
+              <li>Consulted directly with clients on computer systems, translating technical issues into clear, actionable guidance.</li>
+            </ul>
+          </div>
+          <div class="entry">
+            <h3>MedHigh Summer Researcher</h3>
+            <p class="sub">Massachusetts Life Sciences Center / WPI</p>
+            <ul>
+              <li>Prototyped medical devices intended for use in developing countries as part of a student research team.</li>
+              <li>Used Onshape to 3D model components, researching existing solutions to identify design gaps and inform new concepts.</li>
+              <li>Collaborated with a multidisciplinary team to design and build functional device prototypes.</li>
+            </ul>
+          </div>
+          <div class="entry">
+            <h3>Student IT Support Specialist</h3>
+            <p class="sub">Worcester Technical High School</p>
+            <ul>
+              <li>Troubleshot hardware, software, and network issues for faculty and students across the school.</li>
+              <li>Partnered with fellow student technicians to design, build, and maintain school IT infrastructure.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="proj">
+          <h2>Projects</h2>
+          <h3>Self-Hosted Personal AI Assistant</h3>
+          <ul><li>Designed, configured, and deployed a self-hosted AI assistant on personal server infrastructure.</li></ul>
+          <h3>Glucose Detection Pacifier</h3>
+          <ul><li>Prototyped a non-invasive glucose-monitoring device concept for medical applications.</li></ul>
+          <h3>Self-Hosted Cloud</h3>
+          <ul><li>Built and configured a self-hosted cloud server supporting multiple personal applications.</li></ul>
+          <h3>Network-Attached Storage</h3>
+          <ul><li>Designed and built a network-attached storage server for a client.</li></ul>
+          <h3>Self-Hosted Website &amp; Server</h3>
+          <ul><li>Designed, built, and maintain a personal website running on self-managed server infrastructure.</li></ul>
+        </section>
+
+        <section>
+          <h2>Skills</h2>
+          <p><b>Technical:</b> 3D Modeling (Onshape), Computer Troubleshooting, Network &amp; Systems Support, Microsoft 365</p>
+          <p><b>Professional:</b> Research &amp; Design, Client Consulting, Presenting, Team Collaboration</p>
+        </section>
+
+        <section>
+          <h2>Certifications</h2>
+          <ul class="flat">
+            <li>CompTIA A+ (2025)</li>
+            <li>CompTIA ITF+ (2023)</li>
+            <li>OSHA 10-Hour (2026)</li>
+            <li>CPR &amp; First Aid (2026)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Awards &amp; Honors</h2>
+          <ul class="flat">
+            <li>Seal of Biliteracy, Italian &amp; English (2026)</li>
+            <li>MAVA Outstanding Vocational Technical Student Award (2026)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Activities</h2>
+          <h3>American Red Cross &amp; Local Food Banks</h3>
+          <p class="sub">Volunteer</p>
+          <ul class="flat"><li>160+ hours of community service.</li></ul>
+        </section>
+      </article>
+    </div>
+
+    <p class="no-print" style="margin-top: 18px; font-size: 13px; color: var(--muted); text-align: center;">
+      <a href="assets/resume.pdf" download="Nathan Setaro Resume.pdf" style="color: var(--accent); font-weight: 600;">Download the PDF</a>
+      &nbsp;·&nbsp;
+      <a href="assets/resume.pdf" target="_blank" rel="noopener" style="color: var(--accent); font-weight: 600;">Open it in a new tab</a>
+    </p>
+  </main>
+</div>
+
+<script src="vendor/lenis.min.js"></script>
+<script src="fluid.js"></script>
+<script>
+(function () {
+  var root = document.documentElement, isDark = false;
+  try { isDark = sessionStorage.getItem('nds-theme') === 'dark'; } catch (e) {}
+  var tgl = document.getElementById('theme-toggle'), dot = document.getElementById('theme-dot');
+  function sync() {
+    root.classList.toggle('dark', isDark);
+    dot.style.transform = 'rotate(' + (isDark ? 180 : 0) + 'deg)';
+    tgl.title = (isDark ? 'Light' : 'Dark') + ' mode';
+    tgl.setAttribute('aria-pressed', String(isDark));
+  }
+  sync();
+  tgl.addEventListener('click', function () {
+    isDark = !isDark;
+    try { sessionStorage.setItem('nds-theme', isDark ? 'dark' : 'light'); } catch (e) {}
+    if (window.fluid) window.fluid.themeSwitch(tgl, sync); else sync();
+  });
+
+  /* the sheet rises in once; no observer needed, it is on the first screen */
+  var sheet = document.querySelector('.sheet-wrap');
+  requestAnimationFrame(function () { requestAnimationFrame(function () { sheet.classList.add('in'); }); });
+})();
+</script>
+</body>
+</html>

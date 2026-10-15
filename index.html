@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nathan Setaro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;family=Instrument+Sans:wght@400;500;600&amp;family=MuseoModerno:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff; --surface: #ffffff; --ink: #0d2028; --muted: #5b7481;
+    --line: #d3dee4; --accent: #0c7f8c; --accent-soft: rgba(14,133,147,0.07); --disc-teal: #0e8593; --disc-white: #ffffff;
+    --stamen: #6d4fd0;
+    --f1: color-mix(in srgb, var(--accent) 7%, #ffffff);
+    --f2: color-mix(in srgb, var(--accent) 18%, #f7feff);
+    --f3: color-mix(in srgb, var(--accent) 32%, #effbff);
+    --f4: color-mix(in srgb, var(--accent) 48%, #e6f7fc);
+    --f5: color-mix(in srgb, var(--accent) 66%, #ddf2f9);
+    --f6: color-mix(in srgb, var(--accent) 92%, #d2ecf4);
+    --f7: color-mix(in srgb, var(--accent) 82%, #0b4c5e);
+    --f8: color-mix(in srgb, var(--accent) 55%, #073a4a);
+    --f9: color-mix(in srgb, var(--accent) 33%, #04202b);
+    --fr1: color-mix(in srgb, var(--accent) 86%, #0b4c5e);
+    --fr2: color-mix(in srgb, var(--accent) 58%, #073a4a);
+    --fr3: color-mix(in srgb, var(--accent) 34%, #04202b);
+    --sm1: color-mix(in srgb, var(--stamen) 26%, #fff1d6);
+    --sm2: color-mix(in srgb, var(--stamen) 92%, #ffd9a0);
+    --sm3: color-mix(in srgb, var(--stamen) 74%, #2a0410);
+    --violet: #6d4fd0;
+    --hero-ink: #0d2028; --hero-sub: #52707d;
+    --glass: rgba(255,255,255,0.5); --glass-brd: rgba(255,255,255,0.9);
+    --glass-shadow: 0 24px 60px -26px rgba(21,70,88,0.20), 0 2px 8px rgba(21,70,88,0.04);
+    --glass-blur: blur(26px) saturate(185%);
+    --hero-line: rgba(14,133,147,0.30); --hero-cyan: #0e8593; --hero-violet: #6d4fd0;
+    --hero-veil: 255,255,255;
+    --hero-glow-a: rgba(53,183,200,0.09); --hero-glow-b: rgba(124,92,224,0.05);
+    --hero-cta-ink: #ffffff;
+    --hero-halo: transparent; --hero-halo-r: 0px;
+    --mote: rgba(14,133,147,0.5); --mote-2: rgba(109,79,208,0.42);
+    --hero-ghost-brd: rgba(13,32,40,0.16); --hero-ghost-bg: rgba(255,255,255,0.55);
+    --nav-logo-filter: none;
+  }
+  html.dark {
+    --stamen: #9b83f0;
+    --f1: color-mix(in srgb, var(--accent) 20%, #fff6f2);
+    --f2: color-mix(in srgb, var(--accent) 34%, #fbe4e0);
+    --f3: color-mix(in srgb, var(--accent) 50%, #f2d2ce);
+    --f4: color-mix(in srgb, var(--accent) 56%, #e9c6c3);
+    --f5: color-mix(in srgb, var(--accent) 74%, #d8aaa9);
+    --f6: color-mix(in srgb, var(--accent) 96%, #c08e91);
+    --f7: color-mix(in srgb, var(--accent) 80%, #3d0b18);
+    --f8: color-mix(in srgb, var(--accent) 54%, #2b0710);
+    --f9: color-mix(in srgb, var(--accent) 32%, #1b040a);
+    --fr1: color-mix(in srgb, var(--accent) 62%, #ffd9df);
+    --fr2: color-mix(in srgb, var(--accent) 40%, #ffe6ea);
+    --fr3: color-mix(in srgb, var(--accent) 22%, #fff2f4);
+    --sm1: color-mix(in srgb, var(--stamen) 24%, #f0feff);
+    --sm2: color-mix(in srgb, var(--stamen) 88%, #b8f4fb);
+    --sm3: color-mix(in srgb, var(--stamen) 80%, #03303a);
+    --bg: #06161d; --surface: rgba(255,255,255,0.04); --ink: #e9f3f5; --muted: #8ba7b0;
+    --line: rgba(238,246,247,0.15); --accent: #4fd0de; --accent-soft: rgba(79,208,222,0.12); --disc-teal: #04222b; --disc-white: #04222b;
+    --violet: #9b83f0;
+    --hero-ink: #f4fbfc; --hero-sub: #9fbcc4;
+    --glass: rgba(255,255,255,0.045); --glass-brd: rgba(255,255,255,0.09);
+    --glass-shadow: 0 24px 60px -26px rgba(0,0,0,0.6);
+    --glass-blur: blur(20px) saturate(130%);
+    --hero-line: rgba(238,246,247,0.2); --hero-cyan: #5fd8e4; --hero-violet: #7c5ce0;
+    --hero-veil: 6,22,29;
+    --hero-glow-a: rgba(18,120,140,0.34); --hero-glow-b: rgba(124,92,224,0.22);
+    --hero-cta-ink: #06161d;
+    --hero-halo: rgba(95,216,228,0.26); --hero-halo-r: 72px;
+    --mote: rgba(95,216,228,0.75); --mote-2: rgba(150,124,240,0.62);
+    --hero-ghost-brd: rgba(238,246,247,0.24); --hero-ghost-bg: rgba(255,255,255,0.05);
+    --nav-logo-filter: invert(1) brightness(1.05);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { width: 100%; }
+  body { font-family: 'Instrument Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; overflow-x: hidden; transition: background 0.4s ease, color 0.4s ease; }
+  a { color: var(--ink); text-decoration: none; transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--bg); }
+  [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 1s cubic-bezier(0.45,0.2,0.5,0.85), transform 1s cubic-bezier(0.45,0.2,0.5,0.85); }
+  [data-reveal].in { opacity: 1; transform: none; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marquee-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  @keyframes riseIn { from { transform: translateY(108%) rotate(1.6deg); opacity: 0; filter: blur(11px); } to { transform: none; opacity: 1; filter: blur(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes ruleIn { from { transform: scaleX(0.04); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+  @keyframes cueTravel { 0% { transform: translateY(-110%); opacity: 0; } 22% { opacity: 1; } 78% { opacity: 1; } 100% { transform: translateY(240%); opacity: 0; } }
+  @keyframes mote { 0% { transform: translate3d(0,0,0) scale(0.85); opacity: 0; } 14% { opacity: 1; } 72% { opacity: 0.8; } 100% { transform: translate3d(26px, -210px, 0) scale(1.3); opacity: 0; } }
+  @property --ledAngle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+    @keyframes ledSpin { to { --ledAngle: 360deg; } }
+    @keyframes ringSpin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+  @keyframes ringSpinC { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  html.dark .logo-img { filter: invert(1) brightness(1.05); }
+
+  /* hover states (inline styles need !important to be overridden) */
+  .hv-accent:hover { color: var(--accent) !important; }
+  .hv-cta:hover { background: var(--hero-violet) !important; color: var(--hero-cta-ink) !important; }
+  .hv-ghost:hover { border-color: var(--hero-cyan) !important; color: var(--hero-ink) !important; }
+  .hv-toggle:hover { border-color: var(--accent) !important; transform: rotate(12deg) !important; }
+  .hv-social:hover { border-color: var(--accent) !important; transform: translateY(-2px) !important; }
+  .hv-copy:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
+  .hv-card:hover { border-color: var(--accent) !important; transform: translateY(-3px) !important; }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .skip { position: fixed; left: 12px; top: -64px; z-index: 3000; padding: 10px 18px; border-radius: 100px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; }
+  .skip:focus { top: 12px; color: var(--bg); }
+  section[id] { scroll-margin-top: 80px; }
+  .proj-row:hover h3 { color: var(--accent); }
+
+  /* image placeholders — drop a matching file into assets/ and it appears; empty slots stay hidden */
+  .slot:not(.filled) { display: none !important; }
+  .proj-grid:not(.has-img) { grid-template-columns: 1fr !important; }
+  .slot { position: relative; overflow: hidden; border-radius: 6px; background: var(--accent-soft); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
+  .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
+  .slot span { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); opacity: 0.7; padding: 8px; text-align: center; }
+  .chip-mark { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 66px 14px 20px !important; }
+    #theme-toggle { top: 14px !important; right: 16px !important; }
+    .g2, .g57, .g3col { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .exp-row { grid-template-columns: 1fr !important; gap: 10px !important; }
+    .proj-row { grid-template-columns: 1fr auto !important; }
+    .proj-row p { display: none; }
+  }
+  @media (max-width: 600px) {
+    [data-top-link] { display: none !important; }
+  }
+
+  /* visitors who ask for less motion get a still page: no spinning rings, tickers or drifting motes */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    [data-reveal] { opacity: 1 !important; transform: none !important; }
+    #row-companies, #row-tools { animation: none !important; }
+  }
+</style>
+<link rel="stylesheet" href="fluid.css">
+<script src="lotus-mark-dots.js"></script>
+  <script>try{if(sessionStorage.getItem("nds-theme")==="dark")document.documentElement.classList.add("dark");}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#about">Skip to content</a>
+
+<div style="position: relative; min-height: 100vh; min-height: 100svh; width: 100%;">
+
+  <!-- Navigation -->
+  <nav id="nav" style="position: fixed; top: 0px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; justify-content: space-between; align-items: center; gap: 32px; padding: 20px 108px 20px 48px; background: transparent; border: 1px solid transparent; border-radius: 100px;">
+    <span aria-hidden="true" data-nav-ring="1" style="position: absolute; inset: -2px; border-radius: 100px; padding: 2px; pointer-events: none; opacity: 0; transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1); background: conic-gradient(from var(--ledAngle), transparent 0%, transparent 26%, color-mix(in srgb, var(--fr1) 26%, transparent) 40%, color-mix(in srgb, var(--sm2) 58%, transparent) 50%, var(--f6) 56.5%, color-mix(in srgb, #ffffff 80%, var(--f6)) 58%, transparent 59.5%, transparent 100%), linear-gradient(135deg, color-mix(in srgb, var(--f6) 22%, transparent), color-mix(in srgb, var(--sm2) 18%, transparent) 45%, color-mix(in srgb, var(--f7) 24%, transparent)); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor; animation: ledSpin 4s linear infinite;"></span>
+    <a href="#top" data-top="1" style="display: flex; align-items: center;"><img id="nav-logo" src="assets/nds-transparent.png" alt="NDS — Nathan Setaro" class="logo-img" style="height: 38px; width: auto; display: block; filter: var(--nav-logo-filter);"></a>
+    <div data-navlinks="1" style="display: flex; align-items: center; overflow: hidden; flex-shrink: 0;">
+      <div style="display: flex; gap: 8px; align-items: center; width: max-content; white-space: nowrap;">
+        <a href="#top" data-top="1" data-navlink="1" data-top-link="1" class="hv-accent" style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 8px 14px; border-radius: 100px;">Back to top</a>
+        <a href="resume.html" data-navlink="1" class="hv-accent" style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 8px 14px; border-radius: 100px;">Resume</a>
+        <a href="#contact" data-navcta="1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--bg); background: var(--accent); padding: 8px 18px; border-radius: 100px;">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Theme toggle -->
+  <button id="theme-toggle" data-theme-toggle="1" title="Dark mode" aria-label="Toggle dark mode" aria-pressed="false" class="hv-toggle" style="position: fixed; top: 16px; right: 22px; z-index: 1001; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid transparent; background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); cursor: pointer; padding: 0; transition: border-color 0.3s ease, transform 0.3s ease;">
+    <span aria-hidden="true" style="position: absolute; inset: -2px; border-radius: 50%; padding: 2px; pointer-events: none; background: conic-gradient(from 0deg, var(--f6), var(--sm2) 25%, var(--fr1) 50%, var(--f7) 75%, var(--f6)); animation: ringSpinC 6s linear infinite; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor;"></span>
+    <span id="theme-dot" style="width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--ink); background: linear-gradient(90deg, var(--ink) 0 50%, transparent 50% 100%); transform: rotate(0deg); transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);"></span>
+  </button>
+
+  <!-- Hero -->
+  <header id="top" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 150px 28px 128px; position: relative; overflow: hidden; background: var(--bg);">
+    <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(56% 50% at 50% 48%, var(--hero-glow-a), rgba(var(--hero-veil),0) 74%), radial-gradient(40% 36% at 64% 64%, var(--hero-glow-b), rgba(var(--hero-veil),0) 72%);"></div>
+    <div style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; mask-image: radial-gradient(102% 88% at 50% 50%, black 54%, transparent 95%); -webkit-mask-image: radial-gradient(102% 88% at 50% 50%, black 54%, transparent 95%);">
+      <canvas id="lotus" aria-hidden="true" style="position: absolute; top: 50%; left: 50%; width: min(140vh, 136vw); height: min(140vh, 136vw); transform: translate(-50%, -50%); display: block;"></canvas>
+    </div>
+    <div aria-hidden="true" style="position: absolute; top: 50%; left: 50%; width: min(1400px, 122vw); height: min(600px, 62vh); transform: translate(-50%, -46%); pointer-events: none; background: radial-gradient(closest-side, rgba(var(--hero-veil),0.88), rgba(var(--hero-veil),0.55) 54%, rgba(var(--hero-veil),0) 100%);"></div>
+    <div id="hero-text" style="position: relative; z-index: 2; width: 100%; max-width: 1260px; display: flex; flex-direction: column; align-items: center; text-align: center; will-change: transform;">
+      <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+        <div aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: min(1260px, 130%); height: 205%; transform: translate(-50%, -50%); pointer-events: none; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(var(--hero-veil),0.95) 0%, rgba(var(--hero-veil),0.86) 34%, rgba(var(--hero-veil),0.46) 60%, rgba(var(--hero-veil),0) 80%); filter: blur(26px);"></div>
+        <h1 style="position: relative; font-family: 'Newsreader', serif; font-weight: 500; font-size: clamp(46px, 11.4vw, 172px); line-height: 0.94; letter-spacing: -0.045em; color: var(--hero-ink); text-shadow: 0 0 var(--hero-halo-r) var(--hero-halo); display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.26em;">
+          <span style="display: inline-block; overflow: hidden; padding: 0.22em 0.1em 0.06em; margin: -0.22em -0.1em -0.06em;"><span style="display: inline-block; animation: riseIn 1.35s cubic-bezier(0.16,1,0.3,1) 0.18s both;">Nathan</span></span>
+          <span style="display: inline-block; overflow: hidden; padding: 0.22em 0.1em 0.06em; margin: -0.22em -0.1em -0.06em;"><span style="display: inline-block; animation: riseIn 1.35s cubic-bezier(0.16,1,0.3,1) 0.34s both;">Setaro</span></span>
+        </h1>
+      </div>
+      <div style="width: min(100%, 660px); display: flex; flex-direction: column; align-items: center; gap: 24px; margin-top: 34px;">
+        <div style="width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--hero-line) 16%, var(--hero-cyan) 50%, var(--hero-line) 84%, transparent); animation: ruleIn 1.5s cubic-bezier(0.16,1,0.3,1) 0.66s both;"></div>
+        <p style="font-size: clamp(12px, 1.1vw, 14px); font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--hero-sub); animation: fadeUp 1s ease 0.86s both;">Professional Portfolio Website</p>
+      </div>
+      <div style="display: flex; gap: 16px; margin-top: 46px; flex-wrap: wrap; justify-content: center; animation: fadeUp 1s ease 1s both;">
+        <a href="#about" class="hv-cta" style="padding: 15px 34px; background: var(--hero-cyan); color: var(--hero-cta-ink); font-weight: 600; font-size: 14px; letter-spacing: 0.03em; border-radius: 100px; white-space: nowrap;">Meet me</a>
+        <a href="resume.html" class="hv-ghost" style="padding: 15px 34px; border: 1px solid var(--hero-ghost-brd); background: var(--hero-ghost-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); color: var(--hero-ink); font-weight: 600; font-size: 14px; letter-spacing: 0.03em; border-radius: 100px; white-space: nowrap;">View resume</a>
+      </div>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 34vh; pointer-events: none; background: linear-gradient(180deg, rgba(var(--hero-veil),0) 0%, rgba(var(--hero-veil),0.55) 52%, var(--bg) 100%);"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 34px; z-index: 3; display: flex; justify-content: center; pointer-events: none;">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; animation: fadeUp 1.2s ease 1.25s both;">
+                <span style="position: relative; width: 1px; height: 38px; overflow: hidden; background: linear-gradient(180deg, var(--hero-line), transparent);">
+          <span style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent, var(--hero-cyan) 55%, transparent); animation: cueTravel 2.6s cubic-bezier(0.45,0,0.55,1) infinite;"></span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Organizations marquee -->
+  <section style="padding: 40px 0 46px; overflow: hidden; position: relative;">
+    <p style="text-align: center; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px;">ORGANIZATIONS &amp; TOOLS I'VE WORKED WITH</p>
+    <div id="marquee-wrap" style="position: relative; overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);">
+      <div id="row-companies" style="display: flex; width: max-content; animation: marquee-rev 34s linear infinite; align-items: center;"></div>
+      <div id="row-tools" style="display: flex; width: max-content; animation: marquee 42s linear infinite; align-items: center; margin-top: 14px;"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" style="padding: clamp(72px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(84px, 10.5vw, 140px); position: relative; overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; position: relative;">
+      <div data-reveal style="display: flex; align-items: center; gap: 24px; margin-bottom: clamp(36px, 5vw, 64px);">
+        <h2 style="font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(34px, 2.2vw + 18px, 44px); letter-spacing: -0.02em;">About</h2>
+        <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent);"></div>
+      </div>
+      <div class="g57" style="display: grid; grid-template-columns: 5fr 7fr; gap: clamp(28px, 4vw, 52px); align-items: start; padding: clamp(20px, 3.6vw, 44px); border-radius: 26px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); position: relative; border: 1px solid transparent; box-shadow: var(--glass-shadow);"><span aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 27px; padding: 1.5px; pointer-events: none; background: conic-gradient(from var(--ledAngle), transparent 0%, transparent 26%, color-mix(in srgb, var(--fr1) 26%, transparent) 40%, color-mix(in srgb, var(--sm2) 58%, transparent) 50%, var(--f6) 56.5%, color-mix(in srgb, #ffffff 80%, var(--f6)) 58%, transparent 59.5%, transparent 100%), linear-gradient(135deg, color-mix(in srgb, var(--f6) 20%, transparent), color-mix(in srgb, var(--sm2) 16%, transparent) 40%, color-mix(in srgb, var(--fr1) 20%, transparent) 70%, color-mix(in srgb, var(--f7) 22%, transparent)); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor; animation: ledSpin 5.5s linear infinite;"></span>
+        <div data-reveal style="display: flex; flex-direction: column; gap: 14px;">
+          <img src="assets/nate-professional.png" alt="Portrait of Nathan Setaro" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 6px;">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+            <div class="slot" data-slot="about-1" data-alt="Nathan mid-jump in a Boston volleyball jersey" style="aspect-ratio: 1;"><span>about-1</span></div>
+            <div class="slot" data-slot="about-2" data-alt="Nathan at the water's edge at dusk" style="aspect-ratio: 1;"><span>about-2</span></div>
+            <div class="slot" data-slot="about-3" data-alt="Nathan in cap and gown at graduation" style="aspect-ratio: 1;"><span>about-3</span></div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 40px;">
+          <div data-reveal style="font-family: 'Newsreader', serif; font-size: 22px; line-height: 1.65;">
+            <p style="margin-bottom: 20px;">My name is Nathan Setaro. I am a student at Auburn University studying Industrial &amp; Systems Engineering. I graduated from Worcester Technical High School from the Information Support Services and Networking department where I focused on IT support. I have had multiple internships and co-ops where I got to learn new skills and experience different sectors of industry. I am currently looking to continue to explore these sectors and hold current interests in the consulting, defense, and utilities sectors. I really enjoy learning from hands-on experiences and like to spend my time working on personal projects to learn more about my interests or pursue my hobbies. I have a list below with some of my personal hobbies.</p>
+            <p style="color: color-mix(in srgb, var(--ink) 82%, transparent);">I am always looking to connect with people and learn more about what they do. If you would like to speak to me about any of my personal hobbies, please reach out on one of my social media platforms; I prefer to keep my personal and professional lifestyles separate.</p>
+          </div>
+          <div data-reveal>
+            <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">PERSONAL INTERESTS</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px;">
+              <span style="font-size: 13px; font-weight: 500; border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px; background: var(--surface);">Volleyball</span>
+              <span style="font-size: 13px; font-weight: 500; border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px; background: var(--surface);">Photography</span>
+              <span style="font-size: 13px; font-weight: 500; border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px; background: var(--surface);">Traveling</span>
+              <span style="font-size: 13px; font-weight: 500; border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px; background: var(--surface);">Cooking</span>
+              <span style="font-size: 13px; font-weight: 500; border: 1px solid var(--line); border-radius: 100px; padding: 8px 18px; background: var(--surface);">Gaming</span>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="https://x.com/S3TARI0" target="_blank" rel="noopener" class="hv-social" style="display: flex; align-items: center; gap: 10px; padding: 12px 22px; border: 1px solid var(--line); border-radius: 100px; background: var(--surface); font-size: 14px; font-weight: 600;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"></path></svg>
+                Twitter
+              </a>
+              <a href="https://www.instagram.com/nathan_setaro/" target="_blank" rel="noopener" class="hv-social" style="display: flex; align-items: center; gap: 10px; padding: 12px 22px; border: 1px solid var(--line); border-radius: 100px; background: var(--surface); font-size: 14px; font-weight: 600;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85 0 3.2-.01 3.58-.07 4.85-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07-3.2 0-3.58-.01-4.85-.07-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85 0-3.2.01-3.58.07-4.85.15-3.23 1.66-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.7 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.4-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"></path></svg>
+                Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" style="position: relative; padding: clamp(72px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(84px, 10.5vw, 140px); background: var(--bg); overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; position: relative;">
+      <div data-reveal style="display: flex; align-items: baseline; gap: 24px; margin-bottom: 40px;">
+        <h2 style="font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(34px, 2.2vw + 18px, 44px); letter-spacing: -0.02em;">Experience</h2>
+        <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent);"></div>
+      </div>
+      <div style="padding: 8px clamp(20px, 3.6vw, 44px) 20px; border-radius: 26px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow);">
+        <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;">
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">Summer 2025</p>
+          <div>
+            <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">National Grid</h3>
+            <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">Clean Energy Technology Academy Intern</p>
+            <span style="display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 100px; padding: 4px 12px;">Utilities</span>
+          </div>
+          <p style="font-size: 15px; color: var(--muted); line-height: 1.7;">Rotated through electric and gas sectors — substations, field operations, and the infrastructure that keeps a region powered. Utility-scale systems, up close.</p>
+        </div>
+        <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;">
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">2024</p>
+          <div>
+            <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">Machado Consulting</h3>
+            <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">Reactive Support Intern</p>
+            <span style="display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 100px; padding: 4px 12px;">IT Consulting &amp; Support</span>
+          </div>
+          <p style="font-size: 15px; color: var(--muted); line-height: 1.7;">Deployed and configured client machines, diagnosed live technical issues, and worked directly with customers — where fixing the problem is only half the job.</p>
+        </div>
+        <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;">
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">Summer 2024</p>
+          <div>
+            <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">Mass. Life Sciences Center × WPI</h3>
+            <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">MedHigh Summer Researcher</p>
+            <span style="display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 100px; padding: 4px 12px;">Biomedical Engineering</span>
+          </div>
+          <p style="font-size: 15px; color: var(--muted); line-height: 1.7;">Researched design gaps in medical devices for developing countries, then prototyped answers in Onshape — including a glucose-detecting pacifier concept.</p>
+        </div>
+        <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; align-items: start;">
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">2022 – 2026</p>
+          <div>
+            <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">Worcester Technical High School</h3>
+            <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">Student IT Support Specialist</p>
+            <span style="display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 100px; padding: 4px 12px;">IT Support</span>
+          </div>
+          <p style="font-size: 15px; color: var(--muted); line-height: 1.7;">Kept a 2,000-student school's hardware, software, and network running as part of the student IT team. Two years of real tickets, real users, real stakes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" style="padding: clamp(72px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(84px, 10.5vw, 140px); position: relative; overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; position: relative;">
+      <div data-reveal style="display: flex; align-items: baseline; gap: 24px; margin-bottom: 16px;">
+        <h2 style="font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(34px, 2.2vw + 18px, 44px); letter-spacing: -0.02em;">Projects</h2>
+        <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent);"></div>
+      </div>
+      <p data-reveal style="font-size: 14px; color: var(--muted); margin-bottom: clamp(36px, 5vw, 64px);">Click any project to learn more.</p>
+      <div data-reveal id="projects-list" style="padding: 6px clamp(18px, 3.3vw, 40px) 10px; border-radius: 26px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow);"></div>
+    </div>
+  </section>
+
+  <!-- anaeio -->
+  <section id="anaeio" style="padding: clamp(72px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(84px, 10.5vw, 140px); background: var(--bg); position: relative; overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; position: relative;">
+      <div data-reveal class="g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5.5vw, 72px); align-items: center; padding: clamp(24px, 4.6vw, 56px); border-radius: 26px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); position: relative; border: 1px solid transparent; box-shadow: var(--glass-shadow);"><span aria-hidden="true" style="position: absolute; inset: -1px; border-radius: 27px; padding: 1.5px; pointer-events: none; opacity: 0.72; background: linear-gradient(135deg, var(--f6), var(--sm2) 26%, var(--fr1) 48%, var(--f4) 68%, var(--f7)); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor;"></span>
+        <div>
+          <img src="assets/anaeio-text-transparent.png" alt="anaeio" class="logo-img" style="height: 56px; object-fit: contain; object-position: left; margin-bottom: 32px; display: block;">
+          <p style="font-family: 'Newsreader', serif; font-size: 24px; line-height: 1.6; margin-bottom: 24px;">Every independent project I build is under: <span style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; color: var(--ink);">anaeio</span>.</p>
+          <p style="font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 40px;">anaeio is something I am currently building upon. The goal is to have it represent any previous and current projects I work on as more of a technical focused portfolio that explains my thought process on each project in detail. This website is meant to serve as a showcase of me with overviews of my career as well.</p>
+          <span style="display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); position: relative; border: 1px solid transparent; border-radius: 100px; padding: 8px 20px;"><span aria-hidden="true" style="position: absolute; inset: 0; border-radius: 100px; padding: 1.5px; pointer-events: none; background: conic-gradient(from var(--ledAngle), transparent 0%, transparent 26%, color-mix(in srgb, var(--fr1) 26%, transparent) 40%, color-mix(in srgb, var(--sm2) 58%, transparent) 50%, var(--f6) 56.5%, color-mix(in srgb, #ffffff 80%, var(--f6)) 58%, transparent 59.5%, transparent 100%), linear-gradient(135deg, color-mix(in srgb, var(--f6) 20%, transparent), color-mix(in srgb, var(--sm2) 16%, transparent) 50%, color-mix(in srgb, var(--f7) 22%, transparent)); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask-composite: xor; animation: ledSpin 4.5s linear infinite;"></span>anaeio.com — coming soon</span>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <img src="assets/anaeio-lotus-transparent.png" alt="" loading="lazy" class="logo-img" style="width: 240px; object-fit: contain; opacity: 0.9;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recognition -->
+  <section id="recognition" style="padding: clamp(72px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(84px, 10.5vw, 140px); position: relative; overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; position: relative;">
+      <div data-reveal style="display: flex; align-items: baseline; gap: 24px; margin-bottom: clamp(36px, 5vw, 64px);">
+        <h2 style="font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(34px, 2.2vw + 18px, 44px); letter-spacing: -0.02em;">Recognition</h2>
+        <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent);"></div>
+      </div>
+      <div class="g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 80px);">
+        <div data-reveal>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px;">Awards &amp; Honors</p>
+          <div style="padding: 20px 0; border-bottom: 1px solid var(--line);">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+              <h3 style="font-size: 16px; font-weight: 600;">Graduated 3rd in Class</h3>
+              <span style="font-size: 13px; color: var(--muted); flex-shrink: 0;">2026</span>
+            </div>
+            <p style="font-size: 14px; color: var(--muted); margin-top: 6px;">Worcester Technical High School.</p>
+          </div>
+          <div style="padding: 20px 0; border-bottom: 1px solid var(--line);">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+              <h3 style="font-size: 16px; font-weight: 600;">MAVA Outstanding Vocational Technical Student</h3>
+              <span style="font-size: 13px; color: var(--muted); flex-shrink: 0;">2026</span>
+            </div>
+            <p style="font-size: 14px; color: var(--muted); margin-top: 6px;">Statewide recognition, Massachusetts Association of Vocational Administrators.</p>
+          </div>
+          <div style="padding: 20px 0; border-bottom: 1px solid var(--line);">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+              <h3 style="font-size: 16px; font-weight: 600;">Seal of Biliteracy — Italian &amp; English</h3>
+              <span style="font-size: 13px; color: var(--muted); flex-shrink: 0;">2026</span>
+            </div>
+            <p style="font-size: 14px; color: var(--muted); margin-top: 6px;">Certified proficiency in two languages.</p>
+          </div>
+        </div>
+        <div data-reveal>
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px;">Certifications</p>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); gap: 16px;">
+            <h3 style="font-size: 16px; font-weight: 600;">CompTIA A+</h3><span style="font-size: 13px; color: var(--muted);">2025</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); gap: 16px;">
+            <h3 style="font-size: 16px; font-weight: 600;">CompTIA ITF+</h3><span style="font-size: 13px; color: var(--muted);">2023</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); gap: 16px;">
+            <h3 style="font-size: 16px; font-weight: 600;">OSHA 10-Hour General Industry</h3><span style="font-size: 13px; color: var(--muted);">2026</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); gap: 16px;">
+            <h3 style="font-size: 16px; font-weight: 600;">CPR &amp; First Aid</h3><span style="font-size: 13px; color: var(--muted);">2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Looking ahead -->
+  <section style="padding: clamp(72px, 8.5vw, 110px) clamp(20px, 4vw, 48px); position: relative; overflow: hidden;">
+    <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden;">
+      <span style="position: absolute; left: 14%; bottom: 10px; width: 6px; height: 6px; border-radius: 50%; background: radial-gradient(circle, var(--mote), transparent 68%); animation: mote 13s linear 0s infinite;"></span>
+      <span style="position: absolute; left: 27%; bottom: -20px; width: 4px; height: 4px; border-radius: 50%; background: radial-gradient(circle, var(--mote-2), transparent 68%); animation: mote 16s linear 3.4s infinite;"></span>
+      <span style="position: absolute; left: 41%; bottom: 0px; width: 5px; height: 5px; border-radius: 50%; background: radial-gradient(circle, var(--mote), transparent 68%); animation: mote 14s linear 7.1s infinite;"></span>
+      <span style="position: absolute; left: 56%; bottom: -30px; width: 7px; height: 7px; border-radius: 50%; background: radial-gradient(circle, var(--mote-2), transparent 68%); animation: mote 18s linear 1.8s infinite;"></span>
+      <span style="position: absolute; left: 68%; bottom: 20px; width: 4px; height: 4px; border-radius: 50%; background: radial-gradient(circle, var(--mote), transparent 68%); animation: mote 15s linear 9.6s infinite;"></span>
+      <span style="position: absolute; left: 79%; bottom: -10px; width: 6px; height: 6px; border-radius: 50%; background: radial-gradient(circle, var(--mote-2), transparent 68%); animation: mote 17s linear 5.2s infinite;"></span>
+      <span style="position: absolute; left: 90%; bottom: 0px; width: 5px; height: 5px; border-radius: 50%; background: radial-gradient(circle, var(--mote), transparent 68%); animation: mote 14s linear 11.3s infinite;"></span>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: min(560px, 76vw); height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 50%, transparent), transparent);"></div>
+    <div data-reveal style="max-width: 1160px; margin: 0 auto; text-align: center; position: relative;">
+      <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px;">Current Interests</p>
+      <p style="font-family: 'Newsreader', serif; font-size: clamp(24px, 3vw, 34px); line-height: 1.5; max-width: 30ch; margin: 0 auto; text-wrap: balance;">Drawn to defense, utilities, manufacturing, and consulting sectors. Currently open to exploring all opportunities.</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" style="background: var(--bg); position: relative; overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; padding: clamp(84px, 10.5vw, 140px) clamp(20px, 4vw, 48px); position: relative;">
+      <div data-reveal style="max-width: 860px; margin: 0 auto; text-align: center;">
+        <div style="padding: clamp(30px, 3.8vw, 46px) clamp(20px, 3.6vw, 44px) clamp(32px, 4vw, 48px); border-radius: 28px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow);">
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin-bottom: 24px;">Contact Me</p>
+          <h2 style="font-family: 'Newsreader', serif; font-weight: 400; font-size: clamp(44px, 6vw, 76px); line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 24px;">Let's talk.</h2>
+          <p style="font-size: 17px; opacity: 0.7; line-height: 1.75; margin: 0 auto; max-width: 46ch;">Currently seeking internships, research, and other opportunities.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; text-align: left; margin-top: 16px;">
+          <div class="hv-card" style="display: flex; flex-direction: column; gap: 10px; padding: 22px 24px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-shadow); transition: border-color 0.25s ease, transform 0.25s ease;">
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55;">Personal Email</span>
+            <a href="mailto:setaronathan@gmail.com" class="hv-accent" style="font-family: 'Newsreader', serif; font-size: 19px; color: inherit; line-height: 1.3; word-break: break-all;">setaronathan@gmail.com</a>
+            <button data-copy="setaronathan@gmail.com" class="hv-copy" style="align-self: flex-start; margin-top: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: none; border: 1px solid var(--line); border-radius: 100px; padding: 7px 16px; cursor: pointer; color: var(--muted); font-family: inherit; transition: border-color 0.2s ease, color 0.2s ease;">Copy</button>
+          </div>
+          <div class="hv-card" style="display: flex; flex-direction: column; gap: 10px; padding: 22px 24px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-shadow); transition: border-color 0.25s ease, transform 0.25s ease;">
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55;">School Email</span>
+            <a href="mailto:nds0040@auburn.edu" class="hv-accent" style="font-family: 'Newsreader', serif; font-size: 19px; color: inherit; line-height: 1.3; word-break: break-all;">nds0040@auburn.edu</a>
+            <button data-copy="nds0040@auburn.edu" class="hv-copy" style="align-self: flex-start; margin-top: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: none; border: 1px solid var(--line); border-radius: 100px; padding: 7px 16px; cursor: pointer; color: var(--muted); font-family: inherit; transition: border-color 0.2s ease, color 0.2s ease;">Copy</button>
+          </div>
+          <a href="https://www.linkedin.com/in/setaro/" target="_blank" rel="noopener" class="hv-card" style="display: flex; flex-direction: column; gap: 10px; padding: 22px 24px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-shadow); color: inherit; transition: border-color 0.25s ease, transform 0.25s ease;">
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55;">LinkedIn</span>
+            <span style="font-family: 'Newsreader', serif; font-size: 19px; line-height: 1.3;">in/setaro ↗</span>
+            <span style="margin-top: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);">Connect</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p id="copy-status" aria-live="polite" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);"></p>
+
+  <!-- Footer -->
+  <footer style="background: var(--bg); border-top: 1px solid var(--line);">
+    <div style="max-width: 1160px; margin: 0 auto; padding: 36px clamp(20px, 4vw, 48px); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <img src="assets/nathan-wordmark-transparent.png" alt="Nathan D Setaro" loading="lazy" class="logo-img" style="height: 20px; width: auto;">
+        <p style="font-size: 13px; color: var(--muted);">© 2026. Designed and built by hand.</p>
+      </div>
+      <p style="font-size: 12px; color: var(--muted); letter-spacing: 0.06em;">v5_08-31-26_refinement</p>
+    </div>
+  </footer>
+</div>
+
+<script src="vendor/lenis.min.js"></script>
+<script src="fluid.js"></script>
+<script>
+(function () {
+  var root = document.documentElement;
+
+  var SITE_BASE = window.SITE_BASE || '';
+
+  /* ---------- theme ---------- */
+  var isDark = false;
+  /* fresh visit boots light; theme carries across pages within the session */
+  try { isDark = sessionStorage.getItem('nds-theme') === 'dark'; } catch (e) {}
+  var tgl = document.getElementById('theme-toggle');
+  var dot = document.getElementById('theme-dot');
+  function syncTheme() {
+    root.classList.toggle('dark', isDark);
+    dot.style.transform = 'rotate(' + (isDark ? 180 : 0) + 'deg)';
+    tgl.title = (isDark ? 'Light' : 'Dark') + ' mode';
+    tgl.setAttribute('aria-pressed', String(isDark));
+  }
+  syncTheme();
+  tgl.addEventListener('click', function () {
+    isDark = !isDark;
+    try { sessionStorage.setItem('nds-theme', isDark ? 'dark' : 'light'); } catch (e) {}
+    if (window.fluid) window.fluid.themeSwitch(tgl, syncTheme); else syncTheme();
+  });
+
+  /* ---------- nav: shrinks continuously down to the NDS mark ---------- */
+  var nav = document.getElementById('nav');
+  var navLogo = document.getElementById('nav-logo');
+  var navLinksWrap = nav.querySelector('[data-navlinks]');
+  var navLinksInner = navLinksWrap.firstElementChild;
+  var navLinks = nav.querySelectorAll('[data-navlink]');
+  var navCta = nav.querySelector('[data-navcta]');
+  var NAV_RANGE = 520;       // px of scroll for the full collapse
+  var LW = 330, LH = 30, logoW = 38;  // measured: links run w/h, logo width at 38px tall
+  var navShown = -1, navOpenShown = -1;
+  var sT = { v: 0, x: 0 }, sO = { v: 0, x: 1 };   // collapse + links-open springs
+  var navHover = false;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function easeNav(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function spring(s, tgt, dt, smooth) {
+    var om = 2 / smooth, x = om * dt;
+    var ex = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
+    var chg = s.x - tgt, tmp = (s.v + om * chg) * dt;
+    s.v = (s.v - om * tmp) * ex;
+    s.x = tgt + (chg + tmp) * ex;
+    if (Math.abs(tgt - s.x) < 0.0002) { s.x = tgt; s.v = 0; }
+  }
+  function measureNav() {
+    LW = navLinksInner.scrollWidth || LW;
+    LH = navLinksInner.scrollHeight || LH;
+    var ar = (navLogo.naturalWidth && navLogo.naturalHeight) ? navLogo.naturalWidth / navLogo.naturalHeight : 1;
+    logoW = ar * 38;
+    navShown = -1;
+  }
+
+  function applyNav(t, o) {
+    if (navShown >= 0 && Math.abs(t - navShown) < 0.0004 && Math.abs(o - navOpenShown) < 0.0004) return;
+    navShown = t; navOpenShown = o;
+    var e = easeNav(t), oe = easeNav(o);
+    // Two-phase collapse: the empty middle closes first, then the links fold.
+    var mid = Math.min(1, e / 0.55), ms = mid * mid * (3 - 2 * mid);
+    var M = function (a, b) { return a + (b - a) * ms; };
+    var vw = document.documentElement.clientWidth;
+    var padL = M(48, 14), padR = M(108, 14), gapNow = M(32, 20) * oe;
+    var contentW = padL + logoW + gapNow + oe * LW + padR;
+    nav.style.width = Math.min(vw, vw + (contentW - vw) * ms).toFixed(2) + 'px';
+    nav.style.top = M(0, 14).toFixed(2) + 'px';
+    nav.style.gap = gapNow.toFixed(2) + 'px';
+    var wrapEl = navLinksWrap;
+    const navInner = wrapEl && wrapEl.firstElementChild;
+    if (navInner) {
+      navInner.style.gap = (8 * oe).toFixed(2) + 'px';
+      navInner.style.transformOrigin = 'left center';
+      navInner.style.transform = 'scale(' + (0.82 + 0.18 * oe).toFixed(3) + ')';
+    }
+    nav.style.padding = M(20, 7).toFixed(2) + 'px ' + padR.toFixed(2) + 'px ' + M(20, 7).toFixed(2) + 'px ' + padL.toFixed(2) + 'px';
+    nav.style.background = 'color-mix(in srgb, var(--bg) ' + (62 * ms).toFixed(2) + '%, transparent)';
+    nav.style.backdropFilter = ms < 0.02 ? 'none' : 'blur(' + (20 * ms).toFixed(2) + 'px) saturate(150%)';
+    nav.style.webkitBackdropFilter = nav.style.backdropFilter;
+    nav.style.borderColor = 'transparent';
+    const navRingEl = nav.querySelector('[data-nav-ring]');
+    if (navRingEl) navRingEl.style.opacity = Math.max(0, Math.min(1, (e - 0.55) / 0.3)).toFixed(3);
+    const tglEl = document.querySelector('[data-theme-toggle]');
+    if (tglEl) {
+      const tv = Math.max(0, Math.min(1, 1 - e / 0.3));
+      tglEl.style.opacity = tv.toFixed(3);
+      tglEl.style.pointerEvents = tv < 0.05 ? 'none' : 'auto';
+      tglEl.style.transform = 'scale(' + (0.86 + 0.14 * tv).toFixed(3) + ')';
+    }
+    nav.style.boxShadow = '0 8px 32px rgba(0,0,0,' + (0.12 * ms).toFixed(4) + ')';
+    navLogo.style.height = '38px';
+    navLinksWrap.style.maxWidth = (oe * LW).toFixed(2) + 'px';
+    navLinksWrap.style.maxHeight = (oe * LH).toFixed(2) + 'px';
+    navLinksWrap.style.opacity = Math.max(0, (oe - 0.3) / 0.7).toFixed(3);
+    navLinksWrap.style.pointerEvents = oe < 0.35 ? 'none' : 'auto';
+    var lp = lerp(8, 5, e).toFixed(2) + 'px ' + lerp(14, 12, e).toFixed(2) + 'px';
+    for (var i = 0; i < navLinks.length; i++) navLinks[i].style.padding = lp;
+    navCta.style.padding = lerp(8, 5, e).toFixed(2) + 'px ' + lerp(18, 16, e).toFixed(2) + 'px';
+  }
+  function navTarget() { return Math.max(0, Math.min(1, window.scrollY / NAV_RANGE)); }
+
+  if (navLogo.complete) measureNav(); else navLogo.addEventListener('load', measureNav);
+  sT.x = navTarget();
+  sO.x = 1 - sT.x;
+  applyNav(sT.x, sO.x);
+  nav.addEventListener('mouseenter', function () { navHover = true; });
+  nav.addEventListener('mouseleave', function () { navHover = false; });
+  window.addEventListener('resize', measureNav);
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-top]'), function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); if (window.fluid) window.fluid.scrollTo(0); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  });
+
+  /* ---------- reveal on scroll ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  function observeAll() { document.querySelectorAll('[data-reveal]:not(.in)').forEach(function (el) { io.observe(el); }); }
+
+  /* ---------- copy buttons ---------- */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-copy]') : null;
+    if (!b) return;
+    var txt = b.getAttribute('data-copy');
+    var old = b.getAttribute('data-label') || b.textContent;
+    b.setAttribute('data-label', old);
+    function done() {
+      b.textContent = 'Copied';
+      var live = document.getElementById('copy-status');
+      if (live) live.textContent = txt + ' copied to clipboard';
+      setTimeout(function () { b.textContent = old; }, 2000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () { location.href = 'mailto:' + txt; });
+    else location.href = 'mailto:' + txt;
+  });
+
+  /* ---------- marquees ---------- */
+  var companies = [
+    'National Grid|logo-nationalgrid', 'Machado Consulting|logo-machado',
+    'Massachusetts Life Sciences Center|logo-mlsc', 'Worcester Polytechnic Institute|logo-wpi',
+    'Worcester Technical High School|logo-wths', 'Auburn University|logo-auburn|var(--disc-white)',
+    'anaeio|logo-anaeio|var(--disc-teal)', 'MedHigh Program|logo-medhigh',
+    'American Red Cross|logo-redcross', 'CompTIA|logo-comptia'
+  ].map(function (s) {
+    var p = s.split('|');
+    return { name: p[0], slot: p[1], disc: p[2] || 'var(--accent-soft)', initials: p[0].split(' ').map(function (w) { return w[0]; }).join('').slice(0, 4) };
+  });
+  var tools = [
+    ['Python', '#3776AB'], ['Ubuntu', '#E95420'], ['Docker', '#2496ED'], ['Tailscale', '#598EF5'],
+    ['Cloudflare', '#F38020'], ['Nextcloud', '#0082C9'], ['Canva', '#00C4CC'], ['Onshape', '#0AA5FF'],
+    ['Adobe Express', '#FF3366'], ['Microsoft Word', '#2B579A'], ['Microsoft Excel', '#217346'],
+    ['Microsoft PowerPoint', '#D24726'], ['Microsoft Teams', '#5059C9']
+  ].map(function (t) {
+    var key = t[0].toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    var marks = ['python', 'ubuntu', 'docker', 'tailscale', 'cloudflare', 'nextcloud'];
+    var words = t[0].split(' ');
+    return {
+      name: t[0], color: t[1], key: key, hasLogo: marks.indexOf(key) > -1,
+      initials: words.length > 1 ? words.map(function (w) { return w[0]; }).join('').slice(0, 2) : t[0].slice(0, 2)
+    };
+  });
+  var CHIP = 'display: flex; align-items: center; gap: 12px; white-space: nowrap; border: 1px solid var(--line); border-radius: 100px; padding: 9px 22px 9px 10px; background: var(--surface); font-size: 14px; font-weight: 500;';
+  var DISC = 'position: relative; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line);';
+  function companyChip(c) {
+    return '<span style="' + CHIP + '"><span style="' + DISC + ' background: ' + c.disc + ';">' +
+      '<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--accent);">' + c.initials + '</span>' +
+      '<span data-mark="' + c.slot + '" style="position: absolute; inset: 0;"></span>' +
+      '</span>' + c.name + '</span>';
+  }
+  var TCHIP = 'display: flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 13px; font-weight: 500; color: var(--muted); border: 1px solid var(--line); border-radius: 100px; padding: 6px 16px 6px 7px; background: var(--surface);';
+  var TDISC = 'position: relative; width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--line);';
+  function toolChip(t) {
+    var inner = t.hasLogo
+      ? '<span style="width: 13px; height: 13px; background: ' + t.color + '; -webkit-mask-image: url(' + SITE_BASE + 'logos/' + t.key + '.svg); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url(' + SITE_BASE + 'logos/' + t.key + '.svg); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></span>'
+      : '<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: ' + t.color + ';">' + t.initials + '</span>' +
+        '<span data-mark="' + t.key + '" style="position: absolute; inset: 0;"></span>';
+    return '<span style="' + TCHIP + '"><span style="' + TDISC + '">' + inner + '</span>' + t.name + '</span>';
+  }
+  function fillRow(id, items, render) {
+    var html = '';
+    var group = '<div style="display: flex; gap: 14px; align-items: center; padding-right: 14px;">' + items.map(render).join('') + '</div>';
+    for (var i = 0; i < 4; i++) html += group;
+    document.getElementById(id).innerHTML = html;
+  }
+  fillRow('row-companies', companies, companyChip);
+  fillRow('row-tools', tools, toolChip);
+
+  var wrap = document.getElementById('marquee-wrap');
+  var rows = [document.getElementById('row-companies'), document.getElementById('row-tools')];
+  wrap.addEventListener('mouseenter', function () { rows.forEach(function (r) { r.style.animationPlayState = 'paused'; }); });
+  wrap.addEventListener('mouseleave', function () { rows.forEach(function (r) { r.style.animationPlayState = 'running'; }); });
+
+  /* ---------- projects accordion ---------- */
+  var projects = [
+    { t: 'Self-Hosted Personal AI Assistant', s: 'A private AI assistant on my own server hardware.', img: 'proj-ai',
+      body: 'Model hosting, networking, storage, and access — owned end to end. No cloud dependency, no subscription, no one else\u2019s terms.',
+      role: 'Architect and administrator — hardware to interface.',
+      gained: 'Model serving trade-offs, secure remote access, real uptime responsibility.',
+      tools: 'Ubuntu · Docker · Tailscale', cats: 'Infrastructure · AI' },
+    { t: 'Glucose Detection Pacifier', s: 'Non-invasive glucose monitoring concept for infants.', img: 'proj-pacifier',
+      body: 'Infant glucose monitoring in developing countries relies on invasive blood draws. The concept: a pacifier that samples saliva passively, designed for low-cost manufacture. Presented at the MedHigh closing showcase.',
+      role: 'Student researcher — gap research, CAD modeling, final presentation.',
+      gained: 'Design research method, presenting technical work to a real audience.',
+      tools: 'Onshape', cats: 'Medical · CAD · Research' },
+    { t: 'Self-Hosted Cloud', s: 'Private alternative to Drive and iCloud, on owned hardware.', img: 'proj-cloud',
+      body: 'File sync, media, and backups accessible from anywhere without handing data to a third party — hardware selection, service configuration, secure remote access, and maintenance.',
+      role: 'Builder and maintainer.',
+      gained: 'Storage architecture, security hardening, living with my own decisions.',
+      tools: 'Nextcloud · Docker · Cloudflare', cats: 'Infrastructure' },
+    { t: 'Network-Attached Storage', s: 'NAS design and deployment — RAID, backups, remote access.', img: 'proj-nas',
+      body: 'RAID planning for redundancy, automated backup strategy, and secure remote access. Built to survive drive failure without losing a byte.',
+      role: 'Designer and installer.',
+      gained: 'RAID & redundancy planning, backup automation, hardware selection.',
+      tools: 'Ubuntu · Tailscale', cats: 'Systems · Networking' },
+    { t: 'Self-Hosted Website & Server', s: 'A personal website on server infrastructure I manage.', img: 'proj-website',
+      body: 'Designed, built and maintain a personal website running on self-managed server infrastructure, from the server itself to the pages it serves.',
+      role: 'Designer, builder and maintainer.',
+      gained: 'Web hosting, server administration, keeping a public site online.',
+      tools: 'HTML · CSS · JavaScript', cats: 'Web · Infrastructure' }
+  ];
+  function meta(label, val) {
+    return '<div><p style="font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;">' + label +
+      '</p><p style="font-size: 14px; color: var(--muted); line-height: 1.6;">' + val + '</p></div>';
+  }
+  document.getElementById('projects-list').innerHTML = projects.map(function (p, i) {
+    return '<div style="' + (i < projects.length - 1 ? 'border-bottom: 1px solid var(--line);' : '') + '">' +
+      '<div class="proj-row" data-proj="' + i + '" role="button" tabindex="0" aria-expanded="false" aria-controls="proj-panel-' + i + '" style="cursor: pointer; display: grid; grid-template-columns: 1fr 2fr auto; gap: 24px; padding: 28px 0; align-items: baseline;">' +
+        '<h3 style="font-size: 17px; font-weight: 600; transition: color 0.2s ease;">' + p.t + '</h3>' +
+        '<p style="font-size: 14px; color: var(--muted);">' + p.s + '</p>' +
+        '<span data-plus="' + i + '" aria-hidden="true" style="font-size: 20px; color: var(--accent); display: inline-block; transition: transform 0.3s ease;">+</span>' +
+      '</div>' +
+      '<div data-panel="' + i + '" id="proj-panel-' + i + '" style="max-height: 0px; visibility: hidden; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1);">' +
+        '<div class="g57 proj-grid" style="padding: 8px 0 40px; display: grid; grid-template-columns: 5fr 7fr; gap: 40px; align-items: start;">' +
+          '<div class="slot" data-slot="' + p.img + '" data-alt="' + p.t + ' project images" style="aspect-ratio: 16/10;"><span>' + p.img + '</span></div>' +
+          '<div style="display: flex; flex-direction: column; gap: 24px;">' +
+            '<p style="font-size: 15px; color: var(--muted); line-height: 1.8;">' + p.body + '</p>' +
+            '<div class="g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px;">' +
+              meta('My Role', p.role) + meta('What I Gained', p.gained) + meta('Tools Used', p.tools) + meta('Categories', p.cats) +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div></div>';
+  }).join('');
+
+  function toggleProject(head) {
+    var i = head.getAttribute('data-proj');
+    var panel = document.querySelector('[data-panel="' + i + '"]');
+    var plus = document.querySelector('[data-plus="' + i + '"]');
+    var open = panel.style.maxHeight !== '0px' && panel.style.maxHeight !== '';
+    if (!open) panel.style.visibility = 'visible';
+    panel.style.maxHeight = open ? '0px' : panel.scrollHeight + 40 + 'px';
+    plus.style.transform = open ? 'rotate(0deg)' : 'rotate(45deg)';
+    head.setAttribute('aria-expanded', String(!open));
+    if (open) setTimeout(function () { if (panel.style.maxHeight === '0px') panel.style.visibility = 'hidden'; }, 500);
+  }
+  var projList = document.getElementById('projects-list');
+  projList.addEventListener('click', function (e) {
+    var head = e.target.closest('[data-proj]');
+    if (head) toggleProject(head);
+  });
+  projList.addEventListener('keydown', function (e) {
+    var head = e.target.closest('[data-proj]');
+    if (head && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleProject(head); }
+  });
+
+  /* ---------- optional images: appear only if the file exists ---------- */
+  function tryImage(host, base, exts, cls) {
+    var i = 0;
+    (function next() {
+      if (i >= exts.length) return;
+      var im = new Image();
+      im.onload = function () {
+        im.className = cls; im.alt = host.getAttribute('data-alt') || ''; im.loading = 'lazy';
+        host.appendChild(im); host.classList.add('filled');
+        var grid = host.closest('.proj-grid'); if (grid) grid.classList.add('has-img');
+      };
+      im.onerror = function () { i++; next(); };
+      im.src = base + '.' + exts[i];
+    })();
+  }
+  document.querySelectorAll('[data-slot]').forEach(function (el) {
+    tryImage(el, SITE_BASE + 'assets/' + el.getAttribute('data-slot'), ['webp', 'jpg', 'jpeg', 'png'], '');
+  });
+  document.querySelectorAll('[data-mark]').forEach(function (el) {
+    tryImage(el, SITE_BASE + 'logos/' + el.getAttribute('data-mark'), ['png', 'webp', 'jpg', 'svg'], 'chip-mark');
+  });
+
+  observeAll();
+
+  /* ---------- hero constellation ---------- */
+  var cv = document.getElementById('lotus');
+  var heroText = document.getElementById('hero-text');
+  var W = null;
+
+  function webGeom() {
+    if (W) return W;
+    var D = window.LOTUS_DOTS;
+    if (!D) return null;
+    var n = D.x.length, i;
+    var mnx = 1e9, mxx = -1e9, mny = 1e9, mxy = -1e9;
+    for (i = 0; i < n; i++) {
+      var x = D.x[i], y = D.y[i];
+      if (x < mnx) mnx = x; if (x > mxx) mxx = x;
+      if (y < mny) mny = y; if (y > mxy) mxy = y;
+    }
+    var ox = (mnx + mxx) / 2, oy = (mny + mxy) / 2;
+    var span = Math.max(mxx - mnx, mxy - mny) || 1;
+    var px = new Float32Array(n), py = new Float32Array(n), pr = new Float32Array(n);
+    var tt = new Float32Array(n), ph = new Float32Array(n), mr = 0;
+    for (i = 0; i < n; i++) {
+      px[i] = (D.x[i] - ox) / span;
+      py[i] = (D.y[i] - oy) / span;
+      pr[i] = (D.r[i] / 10000) / span;
+      var d = Math.hypot(px[i], py[i]);
+      if (d > mr) mr = d;
+    }
+    for (i = 0; i < n; i++) {
+      var dd = Math.hypot(px[i], py[i]);
+      tt[i] = mr ? Math.min(1, dd / mr) : 0;
+      var h = Math.sin(i * 12.9898 + dd * 78.233) * 43758.5453;
+      ph[i] = h - Math.floor(h);
+    }
+    var link = [], CELL = 0.035, buckets = new Map();
+    for (i = 0; i < n; i++) {
+      var k = (((px[i] + 1) / CELL) | 0) + ':' + (((py[i] + 1) / CELL) | 0);
+      var b = buckets.get(k);
+      if (!b) buckets.set(k, b = []);
+      b.push(i);
+    }
+    for (i = 0; i < n; i++) {
+      var gx = ((px[i] + 1) / CELL) | 0, gy = ((py[i] + 1) / CELL) | 0, made = 0;
+      for (var dx = -1; dx <= 1 && made < 2; dx++) {
+        for (var dy = -1; dy <= 1 && made < 2; dy++) {
+          var bb = buckets.get((gx + dx) + ':' + (gy + dy));
+          if (!bb) continue;
+          for (var q = 0; q < bb.length; q++) {
+            var j = bb[q];
+            if (j <= i) continue;
+            var dl = Math.hypot(px[i] - px[j], py[i] - py[j]);
+            if (dl > 0.004 && dl < 0.030) { link.push(i, j); if (++made >= 2) break; }
+          }
+        }
+      }
+    }
+    W = { n: n, px: px, py: py, pr: pr, tt: tt, ph: ph, link: Int16Array.from(link) };
+    return W;
+  }
+
+  function ramp(u, light) {
+    var S = light
+      ? [[0, 7, 78, 92], [0.16, 14, 133, 147], [0.44, 26, 148, 166], [0.7, 92, 76, 192], [1, 109, 79, 208]]
+      : [[0, 196, 246, 250], [0.16, 95, 216, 228], [0.44, 20, 150, 165], [0.7, 86, 120, 210], [1, 124, 92, 224]];
+    var i = 1;
+    while (i < S.length - 1 && u > S[i][0]) i++;
+    var a = S[i - 1], b = S[i];
+    var f = Math.max(0, Math.min(1, (u - a[0]) / (b[0] - a[0] || 1)));
+    return [a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f, a[3] + (b[3] - a[3]) * f];
+  }
+
+  function drawWeb(p, secs) {
+    var g = webGeom();
+    if (!cv || !g) return;
+    var w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    var dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    var bw = (w * dpr) | 0, bh = (h * dpr) | 0;
+    if (cv.width !== bw || cv.height !== bh) { cv.width = bw; cv.height = bh; }
+    var ctx = cv.getContext('2d');
+    var open = Math.max(0, Math.min(1, p * 1.08));
+    var S = Math.min(w, h) * 0.92 * (1 + 0.01 * Math.sin(secs * 0.6));
+    var cx = w / 2, cy = h / 2;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var light = !isDark;
+    ctx.globalCompositeOperation = light ? 'source-over' : 'lighter';
+    function lit(i) {
+      var a = (open - (g.tt[i] * 0.6 + g.ph[i] * 0.1)) / 0.4;
+      return a < 0 ? 0 : a > 1 ? 1 : a;
+    }
+    function wave(i) { return 0.5 + 0.5 * Math.sin((g.tt[i] * 4.2 - secs * 0.46) * 6.28318); }
+    var L = g.link, q, i, j, a, wv, col;
+    ctx.lineWidth = 0.7;
+    for (q = 0; q < L.length; q += 2) {
+      i = L[q]; j = L[q + 1];
+      a = Math.min(lit(i), lit(j));
+      if (a <= 0.02) continue;
+      wv = wave(i); col = ramp(g.tt[i], light);
+      ctx.globalAlpha = (light ? 0.06 + 0.15 * wv : 0.05 + 0.16 * wv) * a;
+      ctx.strokeStyle = 'rgb(' + (col[0] | 0) + ',' + (col[1] | 0) + ',' + (col[2] | 0) + ')';
+      ctx.beginPath();
+      ctx.moveTo(cx + g.px[i] * S, cy + g.py[i] * S);
+      ctx.lineTo(cx + g.px[j] * S, cy + g.py[j] * S);
+      ctx.stroke();
+    }
+    for (i = 0; i < g.n; i++) {
+      a = lit(i);
+      if (a <= 0.02) continue;
+      wv = wave(i); col = ramp(g.tt[i], light);
+      var x = cx + g.px[i] * S, y = cy + g.py[i] * S, base = g.pr[i] * S;
+      ctx.fillStyle = 'rgb(' + (col[0] | 0) + ',' + (col[1] | 0) + ',' + (col[2] | 0) + ')';
+      ctx.globalAlpha = (light ? 0.012 + 0.024 * wv : 0.05 + 0.09 * wv) * a;
+      ctx.beginPath(); ctx.arc(x, y, base * 5.2, 0, 6.28318); ctx.fill();
+      ctx.globalAlpha = (light ? 0.30 + 0.42 * wv : 0.45 + 0.55 * wv) * a;
+      ctx.beginPath(); ctx.arc(x, y, base * (0.85 + 0.5 * wv), 0, 6.28318); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var t0, prog, last, acc = 0;
+  function tick() {
+    requestAnimationFrame(tick);
+    var y = window.scrollY;
+    var now = performance.now();
+    if (t0 === undefined) t0 = now;
+    if (last === undefined) last = now;
+    var dt = Math.min(64, now - last);
+    var sdt = dt / 1000;
+    var tgt = navTarget();
+    spring(sT, tgt, sdt, 0.42);                          // collapse
+    spring(sO, navHover ? 1 : 1 - Math.max(0, Math.min(1, (tgt - 0.5) / 0.5)), sdt, 0.34);  // links open / shut
+    applyNav(sT.x, sO.x);
+    if (!cv) { last = now; return; }
+    if (y > window.innerHeight * 1.4) { last = now; return; }
+    var el = reduceMotion ? 1e7 : now - t0;
+    var iv = Math.max(0, Math.min(1, (el - 1400) / 1800));
+    var intro = iv * iv * (3 - 2 * iv);
+    var breathe = reduceMotion ? 1 : 0.955 + 0.045 * Math.sin(now / 4300);
+    var sp = Math.max(0, Math.min(1, y / (window.innerHeight * 0.55)));
+    var tp = intro * (breathe + (1 - breathe) * sp * sp * (3 - 2 * sp));
+    if (prog === undefined) prog = 0;
+    last = now;
+    var k = 1 - Math.pow(0.935, dt / 16.667);
+    prog += (tp - prog) * k;
+    var moving = el < 3400 && Math.abs(tp - prog) > 0.004;
+    acc += dt;
+    if (reduceMotion) { if (acc >= 500) { acc = 0; drawWeb(1, 0); } }
+    else if (moving || acc >= 28) { acc = 0; drawWeb(prog, el / 1000); }
+    var vh = window.innerHeight || 1;
+    var away = Math.max(0, Math.min(1, y / (vh * 0.92)));
+    cv.style.opacity = (1 - 0.72 * away * away).toFixed(3);
+    if (heroText) {
+      var fade = Math.max(0, Math.min(1, y / (vh * 0.58)));
+      if (!reduceMotion) heroText.style.transform = 'translate3d(0, ' + (-y * 0.19).toFixed(1) + 'px, 0)';
+      heroText.style.opacity = (1 - 0.92 * fade * fade).toFixed(3);
+    }
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
