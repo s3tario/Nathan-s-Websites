@@ -93,6 +93,20 @@
 </style>
 <link rel="stylesheet" href="fluid.css">
 <link rel="stylesheet" href="motion.css">
+<script>
+  /* look switch: ?look=aero turns on the coastal look for this session, ?look=classic turns it off */
+  /* a frame named "look-aero" / "look-classic" (the side-by-side compare page) is pinned to that look */
+  (function () {
+    try {
+      var q = new URLSearchParams(location.search).get('look');
+      var pinned = /^look-(aero|classic)$/.exec(window.name || '');
+      if (!pinned && (q === 'aero' || q === 'classic')) sessionStorage.setItem('nds-look', q);
+      var look = pinned ? pinned[1] : (q || sessionStorage.getItem('nds-look'));
+      if (look === 'aero') document.documentElement.classList.add('look-aero');
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="aero.css">
 <script>try{if(sessionStorage.getItem("nds-theme")==="dark")document.documentElement.classList.add("dark");}catch(e){}</script>
 </head>
 <body>
@@ -230,6 +244,7 @@
 <script src="vendor/lenis.min.js"></script>
 <script src="fluid.js"></script>
 <script src="motion.js" defer></script>
+<script src="aero.js" defer></script>
 <script>
 (function () {
   var root = document.documentElement, isDark = false;

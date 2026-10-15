@@ -15,14 +15,45 @@ resume.html           Resume page (the resume as real text; also the source of t
 fluid.css / fluid.js  Motion layer shared by both pages: smooth scroll, page
                       transitions, springy buttons, staggered reveals
 motion.css / motion.js  Expressive layer: interactive hero lotus (hover + click
-                      ripples), glowing cursor, magnetic buttons, card spotlights
+                      ripples), magnetic buttons, card spotlights
                       and tilt, letter-by-letter headings, scroll progress bar,
                       experience timeline, scroll-reactive tickers, image wipes
+aero.css / aero.js    The optional "Coastal" look (see below); off unless switched on
+compare.html          Classic and Coastal side by side
 vendor/lenis.min.js   Smooth-scroll library (Lenis 1.1.20, MIT)
 lotus-mark-dots.js    Dot data for the hero constellation
 assets/               Photos, logos, resume PDF
 logos/                Brand marks for the tool chips
 ```
+
+## Two looks: Classic and Coastal
+
+The site has two looks over the same content:
+
+- **Classic**: the white Avatar/Pandora look. This is the default.
+- **Coastal**: a modern take on Frutiger Aero. In it, the lotus floats on the
+  horizon of a still lagoon, the panels are translucent glass, and the page fades
+  from aqua to sand.
+  - At night it is a bioluminescent lagoon.
+  - Water is only a hint: a slow light shimmer under the lotus and a few glossy
+    bubbles at the edges.
+
+To switch looks:
+
+- `index.html?look=aero` turns Coastal on.
+- `index.html?look=classic` turns it off.
+- The choice sticks for the rest of the visit (`sessionStorage`, key `nds-look`)
+  and carries over to the resume page.
+
+`compare.html` shows both looks side by side. It has:
+
+- light/dark, home/resume and desktop/phone switches,
+- synced scrolling,
+- keys 1 / 2 to focus one look, F to flip, Esc for both.
+
+To make Coastal the only look, add `class="look-aero"` to the `<html>` tag on both
+pages. To drop it, delete `aero.css`, `aero.js`, `assets/aero/` and their two
+include lines per page.
 
 ## Filling the empty image spots
 
@@ -69,5 +100,5 @@ Times New Roman; the site's nav, colours and buttons are left out automatically.
 - Visitors who turn on "reduce motion" in their system settings get a still
   version: no smooth scroll, spinning rings, tickers, page transitions or any of
   the motion.js effects.
-- The cursor, magnetic buttons, card spotlights/tilt and lotus hover only run with
+- The magnetic buttons, card spotlights/tilt and lotus hover only run with
   a mouse or trackpad; phones get tap ripples on the lotus and everything else.

@@ -183,8 +183,18 @@
     mqWrap.addEventListener('mouseleave', function () { mqHover = false; });
   }
 
-  /* ---------- anaeio lotus turns with the scroll ---------- */
+  /* ---------- anaeio lotus blooms (grows) as it comes into view, and a little more on hover ---------- */
   var lotusImg = document.querySelector('#anaeio img[src*="anaeio-lotus"]');
+  var lotusScale = 0.72, lotusHover = 0;
+  if (lotusImg) {
+    lotusImg.style.transformOrigin = '50% 60%';
+    lotusImg.style.scale = String(lotusScale);
+    if (fine) {
+      var lotusHost = lotusImg.parentElement;
+      lotusHost.addEventListener('pointerenter', function () { lotusHover = 1; });
+      lotusHost.addEventListener('pointerleave', function () { lotusHover = 0; });
+    }
+  }
 
   /* ---------- hero lotus: hover pushes dots away and lights them; clicks send a ripple ---------- */
   var hero = document.getElementById('top');
@@ -289,18 +299,18 @@
       }
     }
 
-    /* anaeio lotus */
+    /* anaeio lotus: grows from 72% to full size + a quarter as it rises from the bottom of the
+       screen to the middle, eased so it never jitters; hovering blooms it a little more */
     if (lotusImg && M.lotus) {
       var lt = M.lotus.top - y;
-      if (lt + M.lotus.h > -100 && lt < vh + 100) {
-        var lp = clamp(1 - (lt + M.lotus.h / 2) / vh, -0.2, 1.2) - 0.5;
-        var key = (lp * 36).toFixed(1) + '|' + (Math.abs(vel) * 0.004).toFixed(3);
-        if (key !== lastLotus) {
-          lastLotus = key;
-          lotusImg.style.rotate = (lp * 36).toFixed(1) + 'deg';
-          lotusImg.style.translate = '0 ' + (-lp * 46).toFixed(1) + 'px';
-          lotusImg.style.scale = (1 + Math.abs(vel) * 0.004).toFixed(3);
-        }
+      if (lt + M.lotus.h > -150 && lt < vh + 150) {
+        var mid = lt + M.lotus.h / 2;
+        var gp = clamp((vh - mid) / (vh * 0.55), 0, 1);
+        gp = 1 - Math.pow(1 - gp, 3);
+        var target = 0.72 + 0.53 * gp + lotusHover * 0.08;
+        lotusScale += (target - lotusScale) * Math.min(1, dt * 7);
+        var key = lotusScale.toFixed(3);
+        if (key !== lastLotus) { lastLotus = key; lotusImg.style.scale = key; }
       }
     }
   }
