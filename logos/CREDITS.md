@@ -14,3 +14,6 @@ organisations and tools Nathan has worked with.
 | logo-anaeio | anaeio's own lotus mark, recoloured teal for the white badge | — |
 | logo-auburn | Auburn "AU" mark from github.com/klunn91/team-logos (NCAA/auburn.png) | Trademark of Auburn University |
 | logo-wpi | WPI seal, cropped from WPI_logo.png in github.com/Thartvigsen/wpi_latex_poster | Trademark of Worcester Polytechnic Institute |
+| logo-wths | Worcester Technical High School seal, supplied by Nathan; navy corners removed | Trademark of Worcester Public Schools |
+| logo-medhigh | MeDHigh gear-and-globe mark, supplied by Nathan; cropped from the full logo | Trademark of its owners (WPI / MLSC MeDHigh program) |
+| logo-machado | Machado Consulting "m", supplied by Nathan; recoloured to its red on a transparent ground | Trademark of Machado Consulting |

@@ -40,9 +40,8 @@ file stays hidden (a project with no image shows its text full width).
 
 Organization logos work the same way in `logos/` — add a transparent PNG named
 after the slot and it replaces the monogram:
-`logo-nationalgrid`, `logo-wpi`, `logo-auburn`, `logo-anaeio`, `logo-redcross` and
-`logo-comptia` are **filled**; still empty (they show initials): `logo-machado`, `logo-mlsc`,
-`logo-wths`, `logo-medhigh`. Every organisation badge is white in both themes, so a
+All are **filled** except `logo-mlsc` (Massachusetts Life Sciences Center), which still
+shows its initials. Every organisation badge is white in both themes, so a
 transparent PNG or SVG drops straight in. Every tool chip has its mark. Sources and licences are in
 `logos/CREDITS.md`.
 
