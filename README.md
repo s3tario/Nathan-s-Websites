@@ -40,8 +40,10 @@ file stays hidden (a project with no image shows its text full width).
 
 Organization logos work the same way in `logos/` — add a transparent PNG named
 after the slot and it replaces the monogram:
-`logo-nationalgrid`, `logo-machado`, `logo-mlsc`, `logo-wpi`, `logo-wths`,
-`logo-auburn`, `logo-anaeio` (**filled**), `logo-medhigh`, `logo-redcross`, `logo-comptia`.
+`logo-nationalgrid`, `logo-anaeio`, `logo-redcross` and `logo-comptia` are **filled**;
+still empty (they show initials): `logo-machado`, `logo-mlsc`, `logo-wpi`, `logo-wths`,
+`logo-auburn`, `logo-medhigh`. Every tool chip has its mark. Sources and licences are in
+`logos/CREDITS.md`.
 
 Transparent marks sit on a themed disc: `logo-anaeio` gets teal in light mode,
 `logo-auburn` gets white, and both go near-black in dark mode.

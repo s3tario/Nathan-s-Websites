@@ -26,22 +26,18 @@
   document.body.appendChild(bar);
   var barFill = bar.firstChild;
 
-  /* ---------- cursor ---------- */
-  var dot, ring, rx = ptr.x, ry = ptr.y;
+  /* ---------- cursor halo: the normal cursor stays, a thin ring and glow trail it ---------- */
+  var ring, rx = ptr.x, ry = ptr.y;
   if (fine) {
     ring = document.createElement('div'); ring.className = 'cursor-ring'; ring.setAttribute('aria-hidden', 'true');
-    dot = document.createElement('div'); dot.className = 'cursor-dot'; dot.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(ring); document.body.appendChild(dot);
-    root.classList.add('has-cursor');
+    document.body.appendChild(ring);
     var HOVER = 'a, button, [role="button"], .hv-card, .proj-row, label, summary';
     document.addEventListener('pointerover', function (e) {
-      var on = !!(e.target.closest && e.target.closest(HOVER));
-      ring.classList.toggle('is-hover', on); dot.classList.toggle('is-hover', on);
+      ring.classList.toggle('is-hover', !!(e.target.closest && e.target.closest(HOVER)));
     });
-    document.addEventListener('pointerdown', function () { ring.classList.add('is-down'); dot.classList.add('is-down'); });
-    document.addEventListener('pointerup', function () { ring.classList.remove('is-down'); dot.classList.remove('is-down'); });
+    document.addEventListener('pointerdown', function () { ring.classList.add('is-down'); });
+    document.addEventListener('pointerup', function () { ring.classList.remove('is-down'); });
     document.addEventListener('mouseleave', function () { root.classList.remove('cursor-on'); });
-    document.addEventListener('mouseenter', function () { root.classList.add('cursor-on'); });
     window.addEventListener('pointermove', function (e) {
       if (e.pointerType === 'mouse' || e.pointerType === 'pen') root.classList.add('cursor-on');
     }, { passive: true });
@@ -237,8 +233,7 @@
 
     /* cursor */
     if (ring) {
-      dot.style.translate = ptr.x + 'px ' + ptr.y + 'px';
-      rx = lerp(rx, ptr.x, 0.2); ry = lerp(ry, ptr.y, 0.2);
+      rx = lerp(rx, ptr.x, 0.22); ry = lerp(ry, ptr.y, 0.22);
       ring.style.translate = rx.toFixed(1) + 'px ' + ry.toFixed(1) + 'px';
     }
 

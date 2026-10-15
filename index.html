@@ -117,6 +117,13 @@
   .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
   .slot span { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); opacity: 0.7; padding: 8px; text-align: center; }
   .chip-mark { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  [data-mark].filled { background: #ffffff; transition: background-color 0.4s ease; }
+  [data-mark].filled .chip-mark { object-fit: contain; padding: 6px; }
+  [data-wide] [data-mark].filled .chip-mark { padding: 3px 9px; }
+  [data-mark="logo-anaeio"].filled { background: transparent; }
+  [data-mark="logo-anaeio"].filled .chip-mark { object-fit: cover; padding: 0; }
+  html.dark [data-mark].filled:not([data-mark="logo-anaeio"]) { background: #eef5f6; }
+  html.dark .tool-mark { background: color-mix(in srgb, var(--c) 58%, #ffffff) !important; }
 
   @media (max-width: 900px) {
     nav { padding: 14px 66px 14px 20px !important; }
@@ -439,9 +446,9 @@
     <div style="max-width: 1160px; margin: 0 auto; padding: 36px clamp(20px, 4vw, 48px); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;">
       <div style="display: flex; align-items: center; gap: 20px;">
         <img src="assets/nathan-wordmark-transparent.png" alt="Nathan D Setaro" loading="lazy" class="logo-img" style="height: 20px; width: auto;">
-        <p style="font-size: 13px; color: var(--muted);">© 2026. Designed and built by hand.</p>
+        <p style="font-size: 13px; color: var(--muted);">© 2026 Nathan Setaro</p>
       </div>
-      <p style="font-size: 12px; color: var(--muted); letter-spacing: 0.06em;">v5_08-31-26_refinement</p>
+      <p style="font-size: 12px; color: var(--muted); letter-spacing: 0.06em;">v6_10-15-26_refinement</p>
     </div>
   </footer>
 </div>
@@ -604,17 +611,17 @@
     ['Microsoft PowerPoint', '#D24726'], ['Microsoft Teams', '#5059C9']
   ].map(function (t) {
     var key = t[0].toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    var marks = ['python', 'ubuntu', 'docker', 'tailscale', 'cloudflare', 'nextcloud'];
     var words = t[0].split(' ');
     return {
-      name: t[0], color: t[1], key: key, hasLogo: marks.indexOf(key) > -1,
+      name: t[0], color: t[1], key: key, hasLogo: true,
       initials: words.length > 1 ? words.map(function (w) { return w[0]; }).join('').slice(0, 2) : t[0].slice(0, 2)
     };
   });
   var CHIP = 'display: flex; align-items: center; gap: 12px; white-space: nowrap; border: 1px solid var(--line); border-radius: 100px; padding: 9px 22px 9px 10px; background: var(--surface); font-size: 14px; font-weight: 500;';
   var DISC = 'position: relative; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line);';
   function companyChip(c) {
-    return '<span style="' + CHIP + '"><span style="' + DISC + ' background: ' + c.disc + ';">' +
+    var wide = c.slot === 'logo-nationalgrid' || c.slot === 'logo-comptia';   /* wordmark logos need a wider badge */
+    return '<span style="' + CHIP + '"><span style="' + DISC + ' background: ' + c.disc + ';' + (wide ? ' width: 74px; border-radius: 100px;' : '') + '"' + (wide ? ' data-wide="1"' : '') + '>' +
       '<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--accent);">' + c.initials + '</span>' +
       '<span data-mark="' + c.slot + '" style="position: absolute; inset: 0;"></span>' +
       '</span>' + c.name + '</span>';
@@ -623,7 +630,7 @@
   var TDISC = 'position: relative; width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--line);';
   function toolChip(t) {
     var inner = t.hasLogo
-      ? '<span style="width: 13px; height: 13px; background: ' + t.color + '; -webkit-mask-image: url(' + SITE_BASE + 'logos/' + t.key + '.svg); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url(' + SITE_BASE + 'logos/' + t.key + '.svg); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></span>'
+      ? '<span class="tool-mark" style="--c: ' + t.color + '; width: 14px; height: 14px; background: var(--c); -webkit-mask-image: url(' + SITE_BASE + 'logos/' + t.key + '.svg); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url(' + SITE_BASE + 'logos/' + t.key + '.svg); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></span>'
       : '<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: ' + t.color + ';">' + t.initials + '</span>' +
         '<span data-mark="' + t.key + '" style="position: absolute; inset: 0;"></span>';
     return '<span style="' + TCHIP + '"><span style="' + TDISC + '">' + inner + '</span>' + t.name + '</span>';
@@ -836,15 +843,15 @@
        clicks send a ring-shaped ripple outward (state comes from motion.js) */
     if (!g.X) { g.X = new Float32Array(g.n); g.Y = new Float32Array(g.n); g.B = new Float32Array(g.n); }
     var X = g.X, Y = g.Y, B = g.B, FX = window.lotusFX;
-    var R = Math.max(120, S * 0.17), nowMs = performance.now();
+    var R = Math.max(120, S * 0.17), RP = Math.max(70, S * 0.105), nowMs = performance.now();
     var useP = FX && FX.s > 0.01, rips = FX && FX.ripples && FX.ripples.length ? FX.ripples : null;
     for (i = 0; i < g.n; i++) {
       var x0 = cx + g.px[i] * S, y0 = cy + g.py[i] * S, ox = 0, oy = 0, bb = 0, dx, dy, d, f;
       if (useP) {
         dx = x0 - FX.x; dy = y0 - FX.y; d = Math.sqrt(dx * dx + dy * dy);
-        if (d < R) {
-          f = 1 - d / R; f *= f;
-          var push = f * R * 0.3 * FX.s / (d || 1);
+        if (d < RP) {
+          f = 1 - d / RP; f *= f;
+          var push = f * RP * 0.34 * FX.s / (d || 1);
           ox += dx * push; oy += dy * push; bb += f * FX.s;
         }
       }
