@@ -12,3 +12,4 @@ organisations and tools Nathan has worked with.
 | onshape, adobe-express | Arcticons (via @iconify-json/arcticons 1.2.40), stroke thickened | CC BY-SA 4.0 — © Arcticons contributors, github.com/Arcticons-Team/Arcticons |
 | logo-redcross | Drawn for this site: the Red Cross emblem (a red Greek cross) | — |
 | logo-anaeio | Made from anaeio's own lotus mark | — |
+| logo-auburn | Auburn "AU" mark from github.com/klunn91/team-logos (NCAA/auburn.png) | Trademark of Auburn University |

@@ -1,5 +1,5 @@
 /* motion.css — the expressive layer (driven by motion.js).
-   Cursor, magnetic buttons, card spotlights and tilt, split-letter headings,
+   Magnetic buttons, card spotlights and tilt, split-letter headings,
    scroll progress, experience timeline, image wipes and cascades.
    motion.js does nothing under prefers-reduced-motion, so none of this activates. */
 
@@ -11,31 +11,6 @@
   box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 35%, transparent);
   border-radius: 0 2px 2px 0;
 }
-
-/* ---------- cursor halo (mouse and trackpad only): the normal cursor stays; a thin
-   ring and soft glow trail it and open up over anything clickable ---------- */
-.cursor-ring { position: fixed; left: 0; top: 0; z-index: 9000; pointer-events: none; opacity: 0; will-change: translate; }
-.cursor-ring::before, .cursor-ring::after { content: ""; position: absolute; border-radius: 50%; left: 50%; top: 50%; }
-.cursor-ring::before {           /* the ring */
-  width: 30px; height: 30px; margin: -15px 0 0 -15px;
-  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
-  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 14%, transparent);
-  transition: scale 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s ease, background-color 0.45s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.cursor-ring::after {            /* the soft glow around it */
-  width: 120px; height: 120px; margin: -60px 0 0 -60px;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 9%, transparent), transparent);
-  transition: scale 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
-  opacity: 0.8;
-}
-html.cursor-on .cursor-ring { opacity: 1; transition: opacity 0.4s ease; }
-.cursor-ring.is-hover::before {
-  scale: 1.65;
-  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
-  background-color: color-mix(in srgb, var(--accent) 4%, transparent);
-}
-.cursor-ring.is-hover::after { scale: 1.25; opacity: 1; }
-.cursor-ring.is-down::before { transform: scale(0.82); }
 
 /* ---------- magnetic controls: motion.js sets `translate`, which stacks with existing transforms ---------- */
 .magnetic { transition: transform 0.55s var(--spring), translate 0.5s var(--ease-out), opacity 0.3s ease, background-color 0.3s ease, color 0.25s ease, border-color 0.3s ease, box-shadow 0.4s ease !important; }

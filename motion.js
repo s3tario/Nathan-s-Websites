@@ -1,6 +1,6 @@
 /* motion.js — the expressive layer. Load with `defer` after fluid.js.
    Does nothing for visitors who ask for reduced motion. Pointer effects
-   (cursor, magnets, spotlight, tilt, lotus hover) only run with a mouse or trackpad. */
+   (magnets, spotlight, tilt, lotus hover) only run with a mouse or trackpad. */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -25,23 +25,6 @@
   bar.innerHTML = '<span></span>';
   document.body.appendChild(bar);
   var barFill = bar.firstChild;
-
-  /* ---------- cursor halo: the normal cursor stays, a thin ring and glow trail it ---------- */
-  var ring, rx = ptr.x, ry = ptr.y;
-  if (fine) {
-    ring = document.createElement('div'); ring.className = 'cursor-ring'; ring.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(ring);
-    var HOVER = 'a, button, [role="button"], .hv-card, .proj-row, label, summary';
-    document.addEventListener('pointerover', function (e) {
-      ring.classList.toggle('is-hover', !!(e.target.closest && e.target.closest(HOVER)));
-    });
-    document.addEventListener('pointerdown', function () { ring.classList.add('is-down'); });
-    document.addEventListener('pointerup', function () { ring.classList.remove('is-down'); });
-    document.addEventListener('mouseleave', function () { root.classList.remove('cursor-on'); });
-    window.addEventListener('pointermove', function (e) {
-      if (e.pointerType === 'mouse' || e.pointerType === 'pen') root.classList.add('cursor-on');
-    }, { passive: true });
-  }
 
   /* ---------- magnetic controls ---------- */
   if (fine) {
@@ -231,11 +214,6 @@
     var max = document.documentElement.scrollHeight - vh;
     barFill.style.transform = 'scaleX(' + (max > 0 ? clamp(y / max, 0, 1) : 0).toFixed(4) + ')';
 
-    /* cursor */
-    if (ring) {
-      rx = lerp(rx, ptr.x, 0.22); ry = lerp(ry, ptr.y, 0.22);
-      ring.style.translate = rx.toFixed(1) + 'px ' + ry.toFixed(1) + 'px';
-    }
 
     /* hero lotus pointer easing; old ripples expire */
     FX.s = lerp(FX.s, FX.ts, 0.07);
