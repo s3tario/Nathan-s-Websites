@@ -17,3 +17,4 @@ organisations and tools Nathan has worked with.
 | logo-wths | Worcester Technical High School seal, supplied by Nathan; navy corners removed | Trademark of Worcester Public Schools |
 | logo-medhigh | MeDHigh gear-and-globe mark, supplied by Nathan; cropped from the full logo | Trademark of its owners (WPI / MLSC MeDHigh program) |
 | logo-machado | Machado Consulting "m", supplied by Nathan; recoloured to its red on a transparent ground | Trademark of Machado Consulting |
+| logo-mlsc | Massachusetts Life Sciences Center "M" mark, supplied by Nathan; white made transparent | Trademark of the Massachusetts Life Sciences Center |
