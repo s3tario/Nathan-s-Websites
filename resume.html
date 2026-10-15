@@ -59,12 +59,13 @@
     .sheet .contact span[aria-hidden] { display: none; }
   }
   .sheet .contact { font-size: 1.07em; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.3em; }
-  .sheet h2 { font-size: 1.07em; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid #222; padding-bottom: 0.1em; margin: 0.95em 0 0.45em; }
+  .sheet h2 { font-size: 1.07em; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; border-bottom: 1px solid #222; padding-bottom: 0.1em; margin: 0.95em 0 0.45em; }
   .sheet .entry { margin-bottom: 0.5em; }
   .sheet .row { display: flex; justify-content: space-between; align-items: baseline; gap: 0 1.5em; flex-wrap: wrap; }
   .sheet h3 { font-size: 1em; font-weight: 700; }
   .sheet .sub { font-style: italic; }
   .sheet .when { font-style: italic; white-space: nowrap; margin-left: auto; }
+  .sheet .date { font-weight: 700; white-space: nowrap; margin-left: auto; }
   .sheet ul { list-style: none; }
   .sheet li { position: relative; padding-left: 1.05em; }
   .sheet li::before { content: "•"; position: absolute; left: 0.25em; }
@@ -91,6 +92,7 @@
   }
 </style>
 <link rel="stylesheet" href="fluid.css">
+<link rel="stylesheet" href="motion.css">
 <script>try{if(sessionStorage.getItem("nds-theme")==="dark")document.documentElement.classList.add("dark");}catch(e){}</script>
 </head>
 <body>
@@ -124,7 +126,7 @@
           <h2>Education</h2>
           <div class="entry">
             <h3>Auburn University</h3>
-            <div class="row"><p class="sub">Pre-Industrial &amp; Systems Engineering. ASCMA, TPED, NPSE, Men's Volleyball | GPA: 4.0</p><p class="when">Freshman</p></div>
+            <div class="row"><p class="sub">Pre-Industrial &amp; Systems Engineering. ASCMA, NPSE, IM Men's Volleyball | GPA: 4.0</p><p class="when">Freshman</p></div>
           </div>
           <div class="entry">
             <h3>Worcester Technical High School</h3>
@@ -135,7 +137,7 @@
         <section>
           <h2>Experience</h2>
           <div class="entry">
-            <h3>Clean Energy Technology Academy Intern</h3>
+            <div class="row"><h3>Clean Energy Technology Academy Intern</h3><p class="date">Summer 2026</p></div>
             <p class="sub">National Grid</p>
             <ul>
               <li>Collaborated with a team of interns to research, design, and deliver a capstone presentation on clean energy technology.</li>
@@ -143,7 +145,7 @@
             </ul>
           </div>
           <div class="entry">
-            <h3>Reactive Support Intern</h3>
+            <div class="row"><h3>Reactive Support Intern</h3><p class="date">September 2025 – June 2026</p></div>
             <p class="sub">Machado Consulting</p>
             <ul>
               <li>Deployed and configured computing devices for client organizations, ensuring systems were ready for end-user handoff.</li>
@@ -152,7 +154,7 @@
             </ul>
           </div>
           <div class="entry">
-            <h3>MedHigh Summer Researcher</h3>
+            <div class="row"><h3>MedHigh Summer Researcher</h3><p class="date">Summer 2025</p></div>
             <p class="sub">Massachusetts Life Sciences Center / WPI</p>
             <ul>
               <li>Prototyped medical devices intended for use in developing countries as part of a student research team.</li>
@@ -161,7 +163,7 @@
             </ul>
           </div>
           <div class="entry">
-            <h3>Student IT Support Specialist</h3>
+            <div class="row"><h3>Student IT Support Specialist</h3><p class="date">Winter 2023 – Spring 2026</p></div>
             <p class="sub">Worcester Technical High School</p>
             <ul>
               <li>Troubleshot hardware, software, and network issues for faculty and students across the school.</li>
@@ -227,6 +229,7 @@
 
 <script src="vendor/lenis.min.js"></script>
 <script src="fluid.js"></script>
+<script src="motion.js" defer></script>
 <script>
 (function () {
   var root = document.documentElement, isDark = false;

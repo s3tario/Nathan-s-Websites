@@ -1,0 +1,102 @@
+/* motion.css — the expressive layer (driven by motion.js).
+   Cursor, magnetic buttons, card spotlights and tilt, split-letter headings,
+   scroll progress, experience timeline, image wipes and cascades.
+   motion.js does nothing under prefers-reduced-motion, so none of this activates. */
+
+/* ---------- scroll progress ---------- */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 2500; pointer-events: none; }
+.scroll-progress span {
+  display: block; height: 100%; transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), #6d4fd0 70%, var(--accent));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+  border-radius: 0 3px 3px 0;
+}
+
+/* ---------- cursor (mouse and trackpad only) ---------- */
+html.has-cursor, html.has-cursor * { cursor: none !important; }
+.cursor-dot, .cursor-ring { position: fixed; left: 0; top: 0; z-index: 9000; pointer-events: none; border-radius: 50%; opacity: 0; will-change: translate; }
+.cursor-dot {
+  width: 8px; height: 8px; margin: -4px 0 0 -4px; background: var(--accent);
+  box-shadow: 0 0 10px var(--accent), 0 0 22px color-mix(in srgb, var(--accent) 50%, transparent);
+  transition: opacity 0.3s ease, scale 0.3s var(--spring);
+}
+.cursor-ring {
+  width: 40px; height: 40px; margin: -20px 0 0 -20px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  transition: opacity 0.3s ease, width 0.45s var(--spring), height 0.45s var(--spring), margin 0.45s var(--spring),
+              background-color 0.3s ease, border-color 0.3s ease, scale 0.25s var(--spring);
+}
+html.cursor-on .cursor-dot, html.cursor-on .cursor-ring { opacity: 1; }
+.cursor-ring.is-hover {
+  width: 66px; height: 66px; margin: -33px 0 0 -33px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent); border-color: var(--accent);
+}
+.cursor-ring.is-hover + .cursor-dot, .cursor-dot.is-hover { scale: 0.5; }
+.cursor-ring.is-down { scale: 0.82; }
+.cursor-dot.is-down { scale: 1.6; }
+
+/* ---------- magnetic controls: motion.js sets `translate`, which stacks with existing transforms ---------- */
+.magnetic { transition: transform 0.55s var(--spring), translate 0.5s var(--ease-out), opacity 0.3s ease, background-color 0.3s ease, color 0.25s ease, border-color 0.3s ease, box-shadow 0.4s ease !important; }
+
+/* ---------- card spotlight + glowing edge that follow the pointer ---------- */
+.spot-host > .spot {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 0;
+  opacity: 0; transition: opacity 0.5s ease;
+  background: radial-gradient(560px circle at var(--sx, 50%) var(--sy, 50%), color-mix(in srgb, var(--accent) 9%, transparent), transparent 55%);
+}
+.spot-host > .spot::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px;
+  background: radial-gradient(300px circle at var(--sx, 50%) var(--sy, 50%), color-mix(in srgb, var(--accent) 90%, transparent), color-mix(in srgb, #6d4fd0 40%, transparent) 40%, transparent 65%);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude; -webkit-mask-composite: xor;
+}
+.spot-host.spot-on > .spot { opacity: 1; }
+.spot-host > :not(.spot):not([aria-hidden="true"]):not(.tl) { position: relative; z-index: 1; }
+
+/* ---------- headings rise in letter by letter; their rule draws in ---------- */
+.split .sw { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.14em 0.05em 0.08em; margin: -0.14em -0.05em -0.08em; }
+.split .sc {
+  display: inline-block; transform: translateY(108%) rotate(7deg); opacity: 0;
+  transition: transform 1s var(--ease-out) calc(var(--i) * 32ms + 80ms), opacity 0.6s ease calc(var(--i) * 32ms + 80ms);
+}
+.split.split-in .sc { transform: none; opacity: 1; }
+.rule-draw { transform: scaleX(0); transform-origin: 0 50%; transition: transform 1.6s var(--ease-out) 0.3s; }
+.rule-draw.split-in { transform: scaleX(1); }
+
+/* ---------- experience timeline ---------- */
+.tl { position: absolute; top: 46px; bottom: 46px; width: 2px; margin-left: -1px; border-radius: 2px; background: var(--line); pointer-events: none; z-index: 1; }
+.tl-fill {
+  position: absolute; inset: 0; border-radius: inherit; transform-origin: 50% 0; transform: scaleY(0);
+  background: linear-gradient(180deg, var(--accent), #6d4fd0);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.tl-dot {
+  position: absolute; left: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--line);
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.5s ease, scale 0.6s var(--spring);
+}
+.tl-dot.on {
+  background: var(--accent); border-color: var(--accent); scale: 1.2;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 16%, transparent), 0 0 16px var(--accent);
+}
+
+@media (max-width: 600px) { .has-tl .exp-row { padding-left: 18px !important; } }
+
+/* ---------- images unveil with a wipe ---------- */
+.wipe { clip-path: inset(0 0 100% 0 round 6px); transition: clip-path 1.3s var(--ease-out) var(--wd, 0ms), scale 1.6s var(--ease-out) var(--wd, 0ms); scale: 1.06; }
+.wipe.wipe-in { clip-path: inset(0 0 0 0 round 6px); scale: 1; }
+[data-panel] .slot img { clip-path: inset(0 100% 0 0); transition: clip-path 1s var(--ease-out) 0.15s, transform 1.2s var(--ease-out); }
+.proj-row[aria-expanded="true"] + [data-panel] .slot img { clip-path: inset(0 0 0 0); }
+
+/* ---------- lists cascade in once their block has revealed ---------- */
+.cascade > * { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease calc(var(--k) * 70ms + 160ms), transform 0.9s var(--ease-out) calc(var(--k) * 70ms + 160ms); }
+.cascade.pop > * { transform: translateY(10px) scale(0.86); transition-timing-function: ease, var(--spring); }
+.in.cascade > *, .in .cascade > * { opacity: 1; transform: none; }
+
+/* ---------- copy confirmation ---------- */
+@keyframes copied-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 100% { box-shadow: 0 0 0 14px transparent; } }
+.copied-pulse { animation: copied-pulse 0.7s ease-out; border-color: var(--accent) !important; color: var(--accent) !important; }
+
+/* ---------- marquee rows lean with scroll speed ---------- */
+#row-companies, #row-tools { will-change: transform; }

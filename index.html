@@ -139,6 +139,7 @@
   }
 </style>
 <link rel="stylesheet" href="fluid.css">
+<link rel="stylesheet" href="motion.css">
 <script src="lotus-mark-dots.js"></script>
   <script>try{if(sessionStorage.getItem("nds-theme")==="dark")document.documentElement.classList.add("dark");}catch(e){}</script>
 </head>
@@ -264,7 +265,7 @@
       </div>
       <div style="padding: 8px clamp(20px, 3.6vw, 44px) 20px; border-radius: 26px; background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-brd); box-shadow: var(--glass-shadow);">
         <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;">
-          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">Summer 2025</p>
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">Summer 2026</p>
           <div>
             <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">National Grid</h3>
             <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">Clean Energy Technology Academy Intern</p>
@@ -273,7 +274,7 @@
           <p style="font-size: 15px; color: var(--muted); line-height: 1.7;">Rotated through electric and gas sectors — substations, field operations, and the infrastructure that keeps a region powered. Utility-scale systems, up close.</p>
         </div>
         <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;">
-          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">2024</p>
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">September 2025 – June 2026</p>
           <div>
             <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">Machado Consulting</h3>
             <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">Reactive Support Intern</p>
@@ -282,7 +283,7 @@
           <p style="font-size: 15px; color: var(--muted); line-height: 1.7;">Deployed and configured client machines, diagnosed live technical issues, and worked directly with customers — where fixing the problem is only half the job.</p>
         </div>
         <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;">
-          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">Summer 2024</p>
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">Summer 2025</p>
           <div>
             <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">Mass. Life Sciences Center × WPI</h3>
             <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">MedHigh Summer Researcher</p>
@@ -291,7 +292,7 @@
           <p style="font-size: 15px; color: var(--muted); line-height: 1.7;">Researched design gaps in medical devices for developing countries, then prototyped answers in Onshape — including a glucose-detecting pacifier concept.</p>
         </div>
         <div data-reveal class="exp-row" style="display: grid; grid-template-columns: 150px 1fr 2fr; gap: 24px; padding: 36px 0; align-items: start;">
-          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">2022 – 2026</p>
+          <p style="font-size: 13px; color: var(--muted); letter-spacing: 0.04em;">Winter 2023 – Spring 2026</p>
           <div>
             <h3 style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">Worcester Technical High School</h3>
             <p style="font-size: 14px; color: var(--accent); margin-bottom: 8px;">Student IT Support Specialist</p>
@@ -447,6 +448,7 @@
 
 <script src="vendor/lenis.min.js"></script>
 <script src="fluid.js"></script>
+<script src="motion.js" defer></script>
 <script>
 (function () {
   var root = document.documentElement;
@@ -829,28 +831,58 @@
     }
     function wave(i) { return 0.5 + 0.5 * Math.sin((g.tt[i] * 4.2 - secs * 0.46) * 6.28318); }
     var L = g.link, q, i, j, a, wv, col;
+
+    /* dot positions for this frame: the pointer pushes nearby dots away and lights them,
+       clicks send a ring-shaped ripple outward (state comes from motion.js) */
+    if (!g.X) { g.X = new Float32Array(g.n); g.Y = new Float32Array(g.n); g.B = new Float32Array(g.n); }
+    var X = g.X, Y = g.Y, B = g.B, FX = window.lotusFX;
+    var R = Math.max(120, S * 0.17), nowMs = performance.now();
+    var useP = FX && FX.s > 0.01, rips = FX && FX.ripples && FX.ripples.length ? FX.ripples : null;
+    for (i = 0; i < g.n; i++) {
+      var x0 = cx + g.px[i] * S, y0 = cy + g.py[i] * S, ox = 0, oy = 0, bb = 0, dx, dy, d, f;
+      if (useP) {
+        dx = x0 - FX.x; dy = y0 - FX.y; d = Math.sqrt(dx * dx + dy * dy);
+        if (d < R) {
+          f = 1 - d / R; f *= f;
+          var push = f * R * 0.3 * FX.s / (d || 1);
+          ox += dx * push; oy += dy * push; bb += f * FX.s;
+        }
+      }
+      if (rips) {
+        for (var k = 0; k < rips.length; k++) {
+          var age = (nowMs - rips[k].t) / 1000;
+          if (age > 1.7) continue;
+          dx = x0 - rips[k].x; dy = y0 - rips[k].y; d = Math.sqrt(dx * dx + dy * dy) || 1;
+          var front = d - age * R * 4.2, wdt = R * 0.38;
+          var amp = Math.exp(-(front * front) / (2 * wdt * wdt)) * (1 - age / 1.7);
+          ox += dx / d * amp * R * 0.24; oy += dy / d * amp * R * 0.24; bb += amp;
+        }
+      }
+      X[i] = x0 + ox; Y[i] = y0 + oy; B[i] = bb > 1.4 ? 1.4 : bb;
+    }
+
     ctx.lineWidth = 0.7;
     for (q = 0; q < L.length; q += 2) {
       i = L[q]; j = L[q + 1];
       a = Math.min(lit(i), lit(j));
       if (a <= 0.02) continue;
       wv = wave(i); col = ramp(g.tt[i], light);
-      ctx.globalAlpha = (light ? 0.06 + 0.15 * wv : 0.05 + 0.16 * wv) * a;
+      ctx.globalAlpha = Math.min(1, (light ? 0.06 + 0.15 * wv : 0.05 + 0.16 * wv) * a * (1 + B[i] * 2.2));
       ctx.strokeStyle = 'rgb(' + (col[0] | 0) + ',' + (col[1] | 0) + ',' + (col[2] | 0) + ')';
       ctx.beginPath();
-      ctx.moveTo(cx + g.px[i] * S, cy + g.py[i] * S);
-      ctx.lineTo(cx + g.px[j] * S, cy + g.py[j] * S);
+      ctx.moveTo(X[i], Y[i]);
+      ctx.lineTo(X[j], Y[j]);
       ctx.stroke();
     }
     for (i = 0; i < g.n; i++) {
       a = lit(i);
       if (a <= 0.02) continue;
       wv = wave(i); col = ramp(g.tt[i], light);
-      var x = cx + g.px[i] * S, y = cy + g.py[i] * S, base = g.pr[i] * S;
+      var x = X[i], y = Y[i], base = g.pr[i] * S * (1 + B[i] * 0.7);
       ctx.fillStyle = 'rgb(' + (col[0] | 0) + ',' + (col[1] | 0) + ',' + (col[2] | 0) + ')';
-      ctx.globalAlpha = (light ? 0.012 + 0.024 * wv : 0.05 + 0.09 * wv) * a;
+      ctx.globalAlpha = Math.min(1, (light ? 0.012 + 0.024 * wv : 0.05 + 0.09 * wv) * a * (1 + B[i] * 3));
       ctx.beginPath(); ctx.arc(x, y, base * 5.2, 0, 6.28318); ctx.fill();
-      ctx.globalAlpha = (light ? 0.30 + 0.42 * wv : 0.45 + 0.55 * wv) * a;
+      ctx.globalAlpha = Math.min(1, (light ? 0.30 + 0.42 * wv : 0.45 + 0.55 * wv) * a * (1 + B[i] * 0.9));
       ctx.beginPath(); ctx.arc(x, y, base * (0.85 + 0.5 * wv), 0, 6.28318); ctx.fill();
     }
     ctx.globalAlpha = 1;
@@ -886,7 +918,7 @@
     var moving = el < 3400 && Math.abs(tp - prog) > 0.004;
     acc += dt;
     if (reduceMotion) { if (acc >= 500) { acc = 0; drawWeb(1, 0); } }
-    else if (moving || acc >= 28) { acc = 0; drawWeb(prog, el / 1000); }
+    else if (moving || acc >= 28 || (window.lotusFX && (lotusFX.s > 0.01 || lotusFX.ripples.length))) { acc = 0; drawWeb(prog, el / 1000); }
     var vh = window.innerHeight || 1;
     var away = Math.max(0, Math.min(1, y / (vh * 0.92)));
     cv.style.opacity = (1 - 0.72 * away * away).toFixed(3);

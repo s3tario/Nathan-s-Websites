@@ -14,6 +14,10 @@ index.html            Landing page
 resume.html           Resume page (the resume as real text; also the source of the PDF)
 fluid.css / fluid.js  Motion layer shared by both pages: smooth scroll, page
                       transitions, springy buttons, staggered reveals
+motion.css / motion.js  Expressive layer: interactive hero lotus (hover + click
+                      ripples), glowing cursor, magnetic buttons, card spotlights
+                      and tilt, letter-by-letter headings, scroll progress bar,
+                      experience timeline, scroll-reactive tickers, image wipes
 vendor/lenis.min.js   Smooth-scroll library (Lenis 1.1.20, MIT)
 lotus-mark-dots.js    Dot data for the hero constellation
 assets/               Photos, logos, resume PDF
@@ -65,4 +69,7 @@ Times New Roman; the site's nav, colours and buttons are left out automatically.
   rest of that session.
 - Fonts load from Google Fonts, so the type falls back to system sans/serif offline.
 - Visitors who turn on "reduce motion" in their system settings get a still
-  version: no smooth scroll, spinning rings, tickers or page transitions.
+  version: no smooth scroll, spinning rings, tickers, page transitions or any of
+  the motion.js effects.
+- The cursor, magnetic buttons, card spotlights/tilt and lotus hover only run with
+  a mouse or trackpad; phones get tap ripples on the lotus and everything else.
