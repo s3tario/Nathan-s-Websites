@@ -1,0 +1,385 @@
+/* med.css — the "Mediterranean" look, "Terrazza".
+   The page is a sun-bleached limestone terrace seen from directly overhead.
+   Light: the lotus floats above a still plunge pool cut into the top terrace, with three
+   entry steps at its left end and a slow web of light on the water. An olive tree just
+   off-frame at the top right throws soft, cool shade that sways very slowly. Scrolling walks
+   down three shallow ledges, each a hair cooler, to a second pool at the footer. Panels are
+   frosted honed-glass slabs lying on the stone.
+   Dark ("Notte"): no sun, so no leaf shade. The pool is lit from below and glows under the lotus.
+   Water appears exactly twice (hero pool, footer pool), both with hard architectural edges.
+
+   Every rule is scoped to html.look-med, so the classic look is untouched unless the look is
+   switched on (any page with ?look=med; ?look=classic switches back). The whole file sits in
+   @media screen, so printing (the resume PDF) stays exactly classic.
+   Textures in assets/med/ are generated (numpy + PIL), colour baked in: no masks, blends or
+   filters here, and no backdrop blur on large panels. Only two layers move, both transform-only:
+   the olive shade and the pool's light web. */
+
+@media screen {
+
+/* ---------- palette: light ---------- */
+html.look-med {
+  --bg: #EFEBE5;                 /* sun-bleached greige limestone */
+  --surface: rgba(255,253,250,0.72);
+  --muted: #475960;
+  --line: rgba(84,74,62,0.16);   /* warm umber hairline */
+  --accent-ink: #08626C;         /* small accent-coloured text; #0c7f8c is too light on stone */
+  --hero-sub: #4A5F66;
+  --hero-cyan: #0B6E79;          /* deep pool-tile teal */
+  --hero-veil: 244,241,236;
+  --hero-glow-a: rgba(255,251,245,0.55);
+  --hero-glow-b: rgba(12,127,140,0.035);
+  --hero-ghost-bg: rgba(255,253,250,0.62);
+  --hero-ghost-brd: rgba(84,74,62,0.22);
+  --glass: linear-gradient(180deg, rgba(255,254,251,0.72), rgba(253,251,248,0.58));
+  --glass-brd: rgba(255,255,255,0.80);
+  --glass-shadow: inset 0 1px 0 rgba(255,255,255,0.90), inset 0 -1px 0 rgba(120,104,86,0.08), 12px 24px 52px -30px rgba(52,70,84,0.34), 0 2px 6px rgba(52,70,84,0.05);
+  --glass-blur: none;
+
+  /* terraces: translucent cool shade over the stone, each one lower and cooler */
+  --terrace-1: rgba(52,70,84,0);
+  --terrace-2: rgba(52,70,84,0.022);
+  --terrace-3: rgba(52,70,84,0.035);
+  /* ledges: lit edge, narrow riser, inside-corner joint, cast shadow */
+  --ledge-nosing: rgba(255,255,255,0.85);
+  --ledge-riser: rgba(52,70,84,0.06);
+  --ledge-joint: rgba(52,70,84,0.16);
+  --ledge-cast: rgba(52,70,84,0.07);
+
+  /* water: pale, bleached, bluer than mint; shallow at the steps, deeper toward the far end */
+  --water-1: #DDEFED; --water-2: #CBE7E6; --water-3: #B6DEDE; --water-4: #93C9CD;
+  --tread-1: rgba(232,245,242,0.58); --tread-2: rgba(224,241,239,0.38); --tread-3: rgba(218,239,237,0.18);
+  --nosing: rgba(255,255,255,0.60); --step-sh: rgba(36,86,92,0.22);
+  --water-lip: rgba(36,86,92,0.32); --rim-hi: rgba(255,255,255,0.90);
+  --pool-glow: rgba(255,255,255,0.22); --pool-glow-h: 22svh;
+  --caustic-still: 0.30; --caustic-drift: 0.62; --caustic-footer: 0.40;
+  --footer-floor-a: var(--water-3); --footer-floor-b: var(--water-4);
+  --pool-ink: #1C4A50;           /* footer text on the water */
+
+  background: #EFEBE5 url(assets/med/stone-light.webp) 0 0/320px 320px repeat;
+}
+
+/* ---------- palette: dark ("Notte") — every variable above has its twin here ---------- */
+html.look-med.dark {
+  --bg: #121B1D;
+  --surface: rgba(255,255,255,0.04);
+  --muted: #8ba7b0;
+  --line: rgba(238,246,247,0.15);
+  --accent-ink: var(--accent);
+  --hero-sub: #9fbcc4;
+  --hero-cyan: #5fd8e4;
+  --hero-veil: 18,27,29;
+  --hero-glow-a: rgba(18,120,140,0.34);
+  --hero-glow-b: rgba(124,92,224,0.22);
+  --hero-ghost-bg: rgba(255,255,255,0.05);
+  --hero-ghost-brd: rgba(238,246,247,0.24);
+  --glass: linear-gradient(180deg, rgba(34,46,49,0.66), rgba(20,30,32,0.58));   /* smoked glass */
+  --glass-brd: rgba(220,236,233,0.10);
+  --glass-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 12px 26px 60px -30px rgba(0,0,0,0.70), 0 0 0 1px rgba(0,0,0,0.15);
+  --glass-blur: none;
+
+  --terrace-1: rgba(0,0,0,0.06);
+  --terrace-2: rgba(0,0,0,0.12);
+  --terrace-3: rgba(0,0,0,0.18);
+  --ledge-nosing: rgba(170,205,215,0.10);   /* a moonlit edge */
+  --ledge-riser: rgba(0,0,0,0.18);
+  --ledge-joint: rgba(0,0,0,0.40);
+  --ledge-cast: rgba(0,0,0,0.22);
+
+  /* the pool is lit from below: the lamp is in the deep water, so the shallow treads are darker */
+  --water-1: #14383C; --water-2: #134A50; --water-3: #106A72; --water-4: #0B545B;
+  --tread-1: rgba(20,56,60,0.70); --tread-2: rgba(19,74,80,0.42); --tread-3: rgba(19,74,80,0.20);
+  --nosing: rgba(140,230,236,0.18); --step-sh: rgba(0,0,0,0.30);
+  --water-lip: rgba(0,0,0,0.55); --rim-hi: rgba(140,230,236,0.18);
+  --pool-glow: rgba(70,214,224,0.14); --pool-glow-h: 34svh;
+  --caustic-still: 0.06; --caustic-drift: 0.18; --caustic-footer: 0.16;   /* a faint shimmer: the lamp carries the scene */
+  --footer-floor-a: #0B4F56; --footer-floor-b: #0B4F56;                    /* flat: no lamp under the text */
+  --pool-ink: #DDF6F6;
+
+  background: #121B1D url(assets/med/stone-dark.webp) 0 0/320px 320px repeat;
+}
+
+/* the page is see-through so the stone on html shows everywhere */
+html.look-med body,
+html.look-med section { background: transparent !important; }
+
+/* ---------- hero: a plunge pool cut into the top terrace ---------- */
+html.look-med header#top {
+  --pool-x: clamp(16px, 6vw, 96px);
+  /* tied to the lotus canvas (the petal tips sit just inside the coping), never a full-width band */
+  --pool-w: min(calc(min(140vh, 136vw) * 0.82), calc(100% - 2 * var(--pool-x)), 80vw);
+  /* height follows both axes, so the basin keeps a calm proportion (about 5:1 to 7:1) on every screen */
+  --pool-h: clamp(84px, min(18.4vh, 17.4vw), 188px);
+  --pool-b: clamp(22px, 3.2svh, 34px);
+  --tread: clamp(18px, 3.4vw, 50px);
+  --ct: 320px; --cs: 376px;      /* drift / still light-web tile sizes */
+  /* no fill: the stone on html shows; just a little sun wash at the top left */
+  background: radial-gradient(70% 60% at 22% 12%, rgba(255,250,242,0.6), rgba(255,250,242,0) 70%) !important;
+}
+html.look-med.dark header#top {
+  background: radial-gradient(80% 55% at 50% 0%, rgba(120,150,170,0.07), transparent 70%) !important;   /* moonlight */
+}
+@media (max-width: 600px) {
+  /* phone: the pool rises to meet the lower petals instead of floating at the bottom */
+  html.look-med header#top {
+    --pool-w: calc(100% - 2 * var(--pool-x));
+    --pool-h: clamp(110px, 18svh, 170px); --pool-b: clamp(40px, 12svh, 110px);
+    --tread: 14px; --ct: 224px; --cs: 264px;
+  }
+}
+/* shorter phones: the name and buttons sit lower, so the pool goes back down to stay clear of them */
+@media (max-width: 600px) and (max-height: 799px) {
+  html.look-med header#top { --pool-h: clamp(96px, 15svh, 130px); --pool-b: 32px; }
+}
+/* no room for a pool under the buttons at all (e.g. 320x568): the terrace stays plain */
+@media (max-width: 600px) and (max-height: 640px) {
+  html.look-med .med-pool { display: none; }
+}
+@media (min-width: 601px) and (max-height: 780px) {
+  html.look-med header#top { --pool-h: clamp(84px, min(18.4vh, 17.4vw), 188px); --pool-b: 16px; }
+}
+/* the classic fade-to-white at the bottom of the hero goes: the terrace runs on */
+html.look-med header#top > div[style*="height: 34vh"] { display: none !important; }
+/* the veil behind the name stops short of the pool's top edge (light only: the dark veil cannot
+   wash out the pool, and keeping its full height keeps classic's cover behind the subtitle) */
+html.look-med:not(.dark) header#top > div[style*="height: min(600px, 62vh)"] { height: min(540px, 56vh) !important; }
+
+/* the pool (built by med.js): a hard-edged basin, no rounding */
+html.look-med .med-pool {
+  position: absolute; left: 0; right: 0; margin: 0 auto; width: var(--pool-w);
+  bottom: var(--pool-b); height: var(--pool-h); pointer-events: none;
+  outline: 1px solid var(--rim-hi);   /* the sunlit arris of the coping */
+}
+/* light bouncing off the water onto the stone above it (not clipped) */
+html.look-med .med-pool::before {
+  content: ""; position: absolute; left: -12%; right: -12%; bottom: 100%; height: var(--pool-glow-h); pointer-events: none;
+  background: radial-gradient(50% 100% at 50% 100%, var(--pool-glow), transparent 72%);
+}
+html.look-med .med-water {
+  position: absolute; inset: 0; overflow: hidden; contain: paint;
+  background: linear-gradient(90deg, var(--water-2) 0, var(--water-3) 32%, var(--water-4) 100%);   /* shallow to deep */
+}
+html.look-med.dark .med-water {
+  background: radial-gradient(42% 90% at 50% 60%, rgba(90,230,240,0.40), transparent 70%),   /* underwater lamp */
+              linear-gradient(180deg, var(--water-3), var(--water-4));
+}
+/* the light web: a still layer plus one that drifts over it, at a different scale,
+   so the web seems to re-form rather than slide */
+html.look-med .med-caustic {
+  position: absolute; top: 0; bottom: 0; left: 0; pointer-events: none;
+  background: url(assets/med/caustics.webp) repeat;
+}
+html.look-med .med-caustic.still {
+  right: 0; background-size: var(--cs) var(--cs); background-position: 37px 11px; opacity: var(--caustic-still);
+}
+html.look-med .med-caustic.drift {
+  width: calc(100% + var(--ct)); background-size: var(--ct) var(--ct); opacity: var(--caustic-drift);
+  will-change: transform; animation: med-flow 72s linear infinite;
+}
+@keyframes med-flow { to { transform: translate3d(calc(-1 * var(--ct)), 0, 0); } }
+
+/* entry stair across the left short end: three treads, each deeper, above the light web */
+html.look-med .med-steps {
+  position: absolute; top: 0; bottom: 0; left: 0; width: calc(3 * var(--tread) + 12px); pointer-events: none;
+  background:
+    linear-gradient(var(--nosing), var(--nosing)) var(--tread) 0 / 1px 100% no-repeat,
+    linear-gradient(var(--nosing), var(--nosing)) calc(2 * var(--tread)) 0 / 1px 100% no-repeat,
+    linear-gradient(var(--nosing), var(--nosing)) calc(3 * var(--tread)) 0 / 1px 100% no-repeat,
+    linear-gradient(90deg, var(--step-sh), transparent) calc(var(--tread) + 1px) 0 / 14px 100% no-repeat,
+    linear-gradient(90deg, var(--step-sh), transparent) calc(2 * var(--tread) + 1px) 0 / 14px 100% no-repeat,
+    linear-gradient(90deg, var(--step-sh), transparent) calc(3 * var(--tread) + 1px) 0 / 14px 100% no-repeat,
+    linear-gradient(var(--tread-1), var(--tread-1)) 0 0 / var(--tread) 100% no-repeat,
+    linear-gradient(var(--tread-2), var(--tread-2)) var(--tread) 0 / var(--tread) 100% no-repeat,
+    linear-gradient(var(--tread-3), var(--tread-3)) calc(2 * var(--tread)) 0 / var(--tread) 100% no-repeat;
+}
+/* the coping's shadow on the water: light from the upper left, so top and left walls cast most */
+html.look-med .med-rim {
+  position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 14px 12px -10px var(--water-lip), inset 14px 0 12px -10px var(--water-lip),
+              inset -6px 0 8px -5px var(--water-lip), inset 0 -4px 6px -4px var(--water-lip);
+}
+
+/* olive shade from a tree just off-frame at the top right; it falls on the stone and the water.
+   It fades in like a cloud clearing, then sways on the off-frame branch. Light only. */
+html.look-med .med-shade {
+  position: absolute; inset: 0; pointer-events: none; transform-origin: 100% 0; will-change: transform;
+  animation: med-shade-in 2.4s ease-out .5s both, med-sway 24s cubic-bezier(.45,.05,.55,.95) 0s infinite alternate;
+}
+html.look-med .med-shade-a,
+html.look-med .med-shade-b {
+  position: absolute; aspect-ratio: 4 / 3;
+  background: url(assets/med/leaf-shade.webp) 0 0 / 100% 100% no-repeat;
+}
+/* densest behind the nav and toggle corner, thinning toward the end of the name */
+html.look-med .med-shade-a { top: -12%; right: -10%; width: min(78vw, 1200px); opacity: .15; }
+/* a few stray sprays reaching across the stair end of the pool */
+html.look-med .med-shade-b {
+  left: calc(50% - var(--pool-w) / 2 - 210px); bottom: calc(var(--pool-b) - 120px); width: min(40vw, 620px);
+  transform: rotate(180deg); opacity: .10;
+}
+@media (max-width: 600px) {
+  html.look-med .med-shade-a { width: 105vw; right: -40vw; top: -4%; }
+  html.look-med .med-shade-b { display: none; }
+}
+html.look-med.dark .med-shade { display: none; }   /* no sun at night */
+@keyframes med-shade-in { from { opacity: 0; } }
+@keyframes med-sway {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to   { transform: translate3d(-16px, 10px, 0) rotate(-.7deg); }
+}
+/* nothing moves while the hero is off screen (med.js toggles the class) */
+html.look-med #top.med-paused .med-shade,
+html.look-med #top.med-paused .med-caustic.drift { animation-play-state: paused; will-change: auto; }
+
+/* the classic scroll cue now hangs in the water: it becomes a glint of light rather than a dark hair
+   (on a tall phone the pool sits higher and the cue stays on the stone, in its classic teal) */
+@media (min-width: 601px), (max-height: 799px) and (min-height: 641px) {
+  html.look-med header#top > div[style*="bottom: 34px"][style*="z-index: 3"] {
+    --hero-line: rgba(255,255,255,0.55); --hero-cyan: rgba(255,255,255,0.95);
+  }
+}
+
+/* ---------- terraces: the page steps down, each terrace a hair cooler ---------- */
+html.look-med #about,
+html.look-med #experience,
+html.look-med #projects { background: var(--terrace-1) !important; }
+html.look-med #anaeio,
+html.look-med #recognition,
+html.look-med #recognition + section { background: var(--terrace-2) !important; }
+html.look-med #contact { background: var(--terrace-3) !important; }
+
+/* ledges at the three terrace changes, as seen from above: lit edge, narrow riser in shade,
+   inside-corner joint, then a soft cast shadow on the lower step */
+html.look-med #about::before,
+html.look-med #anaeio::before,
+html.look-med #contact::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 56px; pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--ledge-nosing) 0 1px, var(--ledge-riser) 1px 9px, var(--ledge-joint) 9px 10px, transparent 10px) 0 0 / 100% 10px no-repeat,
+    linear-gradient(180deg, var(--ledge-cast), transparent) 0 10px / 100% 46px no-repeat;
+}
+/* the last one is a double step down toward the pool */
+html.look-med #contact::before {
+  height: 80px;
+  background:
+    linear-gradient(180deg, var(--ledge-nosing) 0 1px, var(--ledge-riser) 1px 9px, var(--ledge-joint) 9px 10px, transparent 10px) 0 24px / 100% 10px no-repeat,
+    linear-gradient(180deg, var(--ledge-nosing) 0 1px, var(--ledge-riser) 1px 9px, var(--ledge-joint) 9px 10px, transparent 10px) 0 0 / 100% 10px no-repeat,
+    linear-gradient(180deg, var(--ledge-cast), transparent) 0 10px / 100% 14px no-repeat,
+    linear-gradient(180deg, var(--ledge-cast), transparent) 0 34px / 100% 46px no-repeat;
+}
+
+/* static olive shade on two terraces, under the panels (it shows through them). Light only. */
+html.look-med #about,
+html.look-med #contact { isolation: isolate; }
+html.look-med:not(.dark) #about::after,
+html.look-med:not(.dark) #contact::after {
+  content: ""; position: absolute; top: 0; width: min(64vw, 900px); aspect-ratio: 4 / 3;
+  background: url(assets/med/leaf-shade.webp) 0 0 / 100% 100% no-repeat;
+  opacity: .11; z-index: -1; pointer-events: none;
+}
+html.look-med:not(.dark) #about::after { left: 0; transform: scaleX(-1); }
+/* a different, larger crop of the sprays, entering below the double step */
+html.look-med:not(.dark) #contact::after { right: 0; top: 34px; background-size: 160% 160%; background-position: 100% 0; }
+
+/* ---------- footer: the second pool, two submerged steps under the deck edge ---------- */
+html.look-med footer {
+  position: relative; overflow: hidden; border-top: 0 !important; padding-top: 38px !important;
+  box-shadow: 0 -1px 0 var(--rim-hi);
+  background:
+    linear-gradient(180deg, var(--water-lip), transparent 10px) 0 0 / 100% 10px no-repeat,
+    linear-gradient(180deg, var(--water-1) 0 18px, var(--nosing) 18px 19px, var(--water-2) 19px 37px, var(--nosing) 37px 38px, transparent 38px) 0 0 / 100% 38px no-repeat,
+    linear-gradient(180deg, var(--footer-floor-a), var(--footer-floor-b)) !important;
+}
+/* the night pool is lit from below too, between the two lines of text */
+html.look-med.dark footer {
+  background:
+    linear-gradient(180deg, var(--water-lip), transparent 10px) 0 0 / 100% 10px no-repeat,
+    linear-gradient(180deg, var(--water-1) 0 18px, var(--nosing) 18px 19px, var(--water-2) 19px 37px, var(--nosing) 37px 38px, transparent 38px) 0 0 / 100% 38px no-repeat,
+    radial-gradient(26% 140% at 50% 100%, rgba(90,230,240,0.18), transparent 70%),
+    linear-gradient(180deg, var(--footer-floor-a), var(--footer-floor-b)) !important;
+}
+/* still light web on the pool floor (a fine, irregular web at a large tile, so it never reads as wallpaper) */
+html.look-med footer::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 38px; bottom: 0; pointer-events: none;
+  background: url(assets/med/caustics.webp) 0 0 / 448px 448px repeat;
+  opacity: calc(var(--caustic-footer) * 0.85);
+}
+html.look-med footer > div { position: relative; z-index: 1; }
+html.look-med footer p { color: var(--pool-ink) !important; }
+
+/* ---------- panels: frosted honed-glass slabs (fill, edges and shadow come from the variables) ---------- */
+html.look-med [style*="background: var(--glass)"][style*="border-radius: 26px"],
+html.look-med [style*="background: var(--glass)"][style*="border-radius: 28px"] { border-radius: 16px !important; }
+html.look-med .hv-card[style*="border-radius: 18px"] { border-radius: 12px !important; }
+/* the LED rings follow the crisper corners (their opacity is left alone) */
+html.look-med [style*="background: var(--glass)"] > span[aria-hidden="true"][style*="border-radius: 27px"] { border-radius: 17px !important; }
+
+/* ---------- details ---------- */
+/* small accent-coloured text uses the deeper teal (the leading space skips border-/background-color) */
+html.look-med [style*=" color: var(--accent)"],
+html.look-med [style^="color: var(--accent)"] { color: var(--accent-ink) !important; }
+html.look-med .hv-accent:hover,
+html.look-med .proj-row:hover h3,
+html.look-med .hv-copy:hover,
+html.look-med .copied-pulse { color: var(--accent-ink) !important; }
+
+/* nav: pool-tile teal pill, slightly deeper links over the canopy */
+html.look-med:not(.dark) [data-navcta] { background: #0B6E79 !important; color: #fff !important; }
+html.look-med:not(.dark) [data-navlink]:not(:hover) { color: #3F5157 !important; }
+
+/* hero buttons: flat, no gloss */
+html.look-med:not(.dark) .hv-cta { box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 12px 24px -14px rgba(11,110,121,.55); }
+html.look-med:not(.dark) .hv-ghost { box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 10px 24px -16px rgba(52,70,84,.35); }
+
+/* heading rules become an engraved joint in the stone */
+html.look-med section h2 + div[style*="height: 1px"],
+html.look-med .no-print > p + div[style*="height: 1px"] {
+  background: linear-gradient(90deg, rgba(84,74,62,.30), rgba(84,74,62,0) 92%) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.75);
+}
+html.look-med.dark section h2 + div[style*="height: 1px"],
+html.look-med.dark .no-print > p + div[style*="height: 1px"] {
+  background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,0) 92%) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* contact labels: classic 0.55 opacity is too faint on stone */
+html.look-med #contact [style*="opacity: 0.55"] { opacity: .74 !important; }
+
+/* chips: small honed tiles (the white organisation badges inside stay white) */
+html.look-med:not(.dark) #row-companies > div > span,
+html.look-med:not(.dark) #row-tools > div > span,
+html.look-med:not(.dark) #about [style*="border-radius: 100px; padding: 8px 18px"],
+html.look-med:not(.dark) .hv-social { box-shadow: inset 0 1px 0 rgba(255,255,255,.8); }
+
+html.look-med:not(.dark) ::selection { background: #0B6E79; color: #fff; }
+html.look-med .sheet ::selection { background: #cdeef2; color: #111; }   /* the paper keeps its own */
+
+/* focus: classic's #0c7f8c ring drops near 3:1 on shaded stone; the deeper teal keeps it clear.
+   The white resume paper gets the same ring in both themes (the dark cyan vanishes on white). */
+html.look-med:not(.dark) :focus-visible,
+html.look-med .sheet :focus-visible { outline-color: #08626C; }
+
+/* ---------- resume page (CSS only) ---------- */
+/* the sheet sits on a frosted slab; the paper itself stays pure white */
+html.look-med .sheet-wrap { border-radius: 18px; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+html.look-med:not(.dark) .hv-white[style*="background: var(--accent)"] { background: #0B6E79 !important; }
+/* in dark the button is bright cyan, so its label goes dark (white on it is 1.8:1) */
+html.look-med.dark .hv-white[style*="background: var(--accent)"],
+html.look-med.dark .hv-white[style*="background: var(--accent)"]:hover { color: #121B1D !important; }
+/* the sticky nav slides over the white paper: a denser night tint keeps its links readable */
+html.look-med.dark nav[style*="position: sticky"] { background: color-mix(in srgb, var(--bg) 92%, transparent) !important; }
+/* one patch of still olive shade at the top right (it never reaches past the right edge) */
+html.look-med:not(.dark) body:has(.sheet-wrap)::before {
+  content: ""; position: absolute; top: 0; right: 0; width: min(78vw, 1000px); aspect-ratio: 4 / 3;
+  background: url(assets/med/leaf-shade.webp) 0 0 / 100% 100% no-repeat;
+  opacity: .13; z-index: -1; pointer-events: none;
+}
+
+/* ---------- reduced motion: the scene is complete, nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.look-med .med-shade,
+  html.look-med .med-caustic.drift { animation: none !important; will-change: auto; }
+}
+
+}

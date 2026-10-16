@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <script>
-  /* compare.html — the classic and the coastal look of the site, side by side.
+  /* compare.html — the classic and the Mediterranean look of the site, side by side.
      The theme is the site's own (sessionStorage 'nds-theme', shared with the frames);
      ?theme=dark|light overrides it. This runs before the frames start loading. */
   (function () {
@@ -110,10 +110,10 @@
   }
   .stage[data-swap] .pane[data-look="classic"] { order: 2; }
   /* focus: both panes share one cell (the hidden one keeps its size, scroll and state, so flipping is instant) */
-  .stage[data-view="classic"], .stage[data-view="aero"] { grid-template-columns: minmax(0, 1fr); }
-  .stage[data-view="classic"] .pane, .stage[data-view="aero"] .pane { grid-area: 1 / 1; }
-  .stage[data-view="classic"] .pane[data-look="aero"],
-  .stage[data-view="aero"] .pane[data-look="classic"] { visibility: hidden; pointer-events: none; }
+  .stage[data-view="classic"], .stage[data-view="med"] { grid-template-columns: minmax(0, 1fr); }
+  .stage[data-view="classic"] .pane, .stage[data-view="med"] .pane { grid-area: 1 / 1; }
+  .stage[data-view="classic"] .pane[data-look="med"],
+  .stage[data-view="med"] .pane[data-look="classic"] { visibility: hidden; pointer-events: none; }
 
   .pane {
     display: flex; flex-direction: column; min-width: 0; min-height: 0;
@@ -132,7 +132,8 @@
   .swatch { position: relative; width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; box-shadow: inset 0 0 0 1px rgba(13,32,40,0.12); }
   .swatch.classic { background: radial-gradient(circle at 50% 50%, #ffffff 0 13%, transparent 15%), conic-gradient(from 210deg, #0c7f8c, #4fd0de 30%, #6d4fd0 62%, #9b83f0 80%, #0c7f8c); }
   html.dark .swatch.classic { background: radial-gradient(circle at 50% 50%, #06161d 0 13%, transparent 15%), conic-gradient(from 210deg, #0c7f8c, #4fd0de 30%, #6d4fd0 62%, #9b83f0 80%, #0c7f8c); }
-  .swatch.aero { background: radial-gradient(120% 70% at 50% -8%, rgba(255,255,255,0.92), rgba(255,255,255,0) 58%), linear-gradient(180deg, #a9e4fb 0%, #46bde3 46%, #138ab0 66%, #e9dcbc 67%, #f6eedb 100%); }
+  .swatch.med { background: radial-gradient(42% 34% at 76% 20%, rgba(36,54,66,.28), rgba(36,54,66,0) 72%), linear-gradient(180deg, #F1EDE7 0 54%, #FFFFFF 54% 56%, #DDEFED 56% 66%, #CBE7E6 66% 76%, #B0DADB 76% 100%); }
+  html.dark .swatch.med { background: radial-gradient(60% 40% at 50% 84%, rgba(90,230,240,.45), transparent 70%), linear-gradient(180deg, #172022 0 54%, #2A3A3B 54% 56%, #14383C 56% 66%, #134A50 66% 76%, #0F6E77 76% 100%); }
   .label-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
   .label-text strong { font-family: var(--serif); font-weight: 500; font-size: 19px; line-height: 1; letter-spacing: -0.01em; }
   .label-text small { font-size: 12px; font-weight: 500; line-height: 1.15; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -193,7 +194,7 @@
       grid-template-rows: repeat(2, max(440px, calc(100svh - 170px)));
       padding: 12px 12px 0; gap: 12px;
     }
-    .stage[data-view="classic"], .stage[data-view="aero"] { grid-template-rows: max(440px, calc(100svh - 170px)); }
+    .stage[data-view="classic"], .stage[data-view="med"] { grid-template-rows: max(440px, calc(100svh - 170px)); }
     .keys { display: none; }
   }
   @media (max-width: 560px) {
@@ -240,7 +241,7 @@
     <div class="seg" role="group" aria-label="View">
       <button type="button" data-view="both" title="Side by side (Esc)">Both</button>
       <button type="button" data-view="classic" title="Classic full width (1)">Classic</button>
-      <button type="button" data-view="aero" title="Coastal full width (2)">Coastal</button>
+      <button type="button" data-view="med" title="Mediterranean full width (2)">Mediterranean</button>
     </div>
     <label class="switch" id="sync-wrap" title="Scrolling one pane scrolls the other to the same proportional position">
       <input type="checkbox" id="sync" checked> Sync scroll
@@ -270,27 +271,27 @@
     </div>
   </section>
 
-  <section class="pane" data-look="aero" aria-label="Coastal look">
+  <section class="pane" data-look="med" aria-label="Mediterranean look">
     <div class="pane-head">
-      <button type="button" class="label" data-label aria-pressed="false" aria-label="Show Coastal full width">
-        <span class="swatch aero" aria-hidden="true"></span>
-        <span class="label-text"><strong>Coastal</strong><small>New look · ?look=aero</small></span>
+      <button type="button" class="label" data-label aria-pressed="false" aria-label="Show Mediterranean full width">
+        <span class="swatch med" aria-hidden="true"></span>
+        <span class="label-text"><strong>Mediterranean</strong><small>Limestone &amp; pool · ?look=med</small></span>
         <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="expand"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></g><g class="collapse"><path d="M13 7H9V3M3 9h4v4M9 7l4.5-4.5M7 9l-4.5 4.5"/></g></svg>
       </button>
       <span class="meta" data-meta aria-live="off"></span>
-      <a class="open" data-open href="index.html?look=aero" target="_blank" rel="noopener">Open
+      <a class="open" data-open href="index.html?look=med" target="_blank" rel="noopener">Open
         <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h5.5V8M9.5 2.5 2.5 9.5"/></svg>
-        <span class="sr-only">the coastal look in a new tab</span></a>
+        <span class="sr-only">the Mediterranean look in a new tab</span></a>
     </div>
     <div class="viewport">
-      <div class="device"><iframe name="look-aero" src="index.html?look=aero" title="Coastal look — live preview of the site" width="1440" height="900"></iframe></div>
+      <div class="device"><iframe name="look-med" src="index.html?look=med" title="Mediterranean look — live preview of the site" width="1440" height="900"></iframe></div>
     </div>
   </section>
 </main>
 
 <footer class="note">
-  <p>Open the coastal look on its own: <a href="index.html?look=aero">index.html?look=aero</a> · back to classic: <a href="index.html?look=classic">index.html?look=classic</a></p>
-  <p class="keys" aria-hidden="true"><kbd>1</kbd> Classic <kbd>2</kbd> Coastal <kbd>F</kbd> flip <kbd>Esc</kbd> both</p>
+  <p>Open the Mediterranean look on its own: <a href="index.html?look=med">index.html?look=med</a> · back to classic: <a href="index.html?look=classic">index.html?look=classic</a></p>
+  <p class="keys" aria-hidden="true"><kbd>1</kbd> Classic <kbd>2</kbd> Mediterranean <kbd>F</kbd> flip <kbd>Esc</kbd> both</p>
 </footer>
 
 <script>
@@ -304,7 +305,7 @@
 
   var DEVICES = { desktop: { w: 1440 }, phone: { w: 390, h: 844, bezel: 12 } };
   var PAGES = { home: 'index.html', resume: 'resume.html' };
-  var NAMES = { classic: 'Classic', aero: 'Coastal' };
+  var NAMES = { classic: 'Classic', med: 'Mediterranean' };
   var now = function () { return performance.now(); };
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
 
@@ -316,13 +317,13 @@
     dark: root.classList.contains('dark'),
     page: pick(q.get('page'), ['home', 'resume'], 'home'),
     device: pick(q.get('device'), ['desktop', 'phone'], defaultDevice),
-    view: pick(q.get('view'), ['both', 'classic', 'aero'], 'both'),
+    view: pick(q.get('view'), ['both', 'classic', 'med'], 'both'),
     swap: q.get('swap') === '1',
     sync: q.get('sync') !== '0',
     leader: 'classic'
   };
 
-  var panes = ['classic', 'aero'].map(function (look) {
+  var panes = ['classic', 'med'].map(function (look) {
     var el = document.querySelector('.pane[data-look="' + look + '"]');
     return {
       look: look, el: el, frame: el.querySelector('iframe'), viewport: el.querySelector('.viewport'),
@@ -333,7 +334,7 @@
     };
   });
   function other(p) { return p === panes[0] ? panes[1] : panes[0]; }
-  function byLook(look) { return look === 'aero' ? panes[1] : panes[0]; }
+  function byLook(look) { return look === 'med' ? panes[1] : panes[0]; }
 
   /* ---------- wiring a frame each time it loads a page ---------- */
   function pageOf(win) {
@@ -535,8 +536,8 @@
     if (tag === 'INPUT' && t.type !== 'checkbox' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
     var k = e.key;
     if (k === '1') setView('classic');
-    else if (k === '2') setView('aero');
-    else if (k === 'f' || k === 'F') setView(state.view === 'classic' ? 'aero' : 'classic');
+    else if (k === '2') setView('med');
+    else if (k === 'f' || k === 'F') setView(state.view === 'classic' ? 'med' : 'classic');
     else if (k === 'Escape' && state.view !== 'both') setView('both');
   }
   document.addEventListener('keydown', onKey);
