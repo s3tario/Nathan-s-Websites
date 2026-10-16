@@ -93,20 +93,6 @@
 </style>
 <link rel="stylesheet" href="fluid.css">
 <link rel="stylesheet" href="motion.css">
-<script>
-  /* look switch: ?look=med turns on the Mediterranean look for this session, ?look=classic turns it off */
-  /* a frame named "look-med" / "look-classic" (the side-by-side compare page) is pinned to that look */
-  (function () {
-    try {
-      var q = new URLSearchParams(location.search).get('look');
-      var pinned = /^look-(med|classic)$/.exec(window.name || '');
-      if (!pinned && (q === 'med' || q === 'classic')) sessionStorage.setItem('nds-look', q);
-      var look = pinned ? pinned[1] : (q || sessionStorage.getItem('nds-look'));
-      if (look === 'med') document.documentElement.classList.add('look-med');
-    } catch (e) {}
-  })();
-</script>
-<link rel="stylesheet" href="med.css">
 <script>try{if(sessionStorage.getItem("nds-theme")==="dark")document.documentElement.classList.add("dark");}catch(e){}</script>
 </head>
 <body>
@@ -244,7 +230,6 @@
 <script src="vendor/lenis.min.js"></script>
 <script src="fluid.js"></script>
 <script src="motion.js" defer></script>
-<script src="med.js" defer></script>
 <script>
 (function () {
   var root = document.documentElement, isDark = false;

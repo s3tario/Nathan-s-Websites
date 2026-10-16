@@ -18,40 +18,11 @@ motion.css / motion.js  Expressive layer: interactive hero lotus (hover + click
                       ripples), magnetic buttons, card spotlights
                       and tilt, letter-by-letter headings, scroll progress bar,
                       experience timeline, scroll-reactive tickers, image wipes
-med.css / med.js      The optional "Mediterranean" look (see below); off unless switched on
-assets/med/           Its generated textures (stone, light web, olive-leaf shade)
-compare.html          Classic and Mediterranean side by side
 vendor/lenis.min.js   Smooth-scroll library (Lenis 1.1.20, MIT)
 lotus-mark-dots.js    Dot data for the hero constellation
 assets/               Photos, logos, resume PDF
 logos/                Brand marks for the tool chips
 ```
-
-## Two looks: Classic and Mediterranean
-
-The site has two looks over the same content. **Classic** (the white Avatar/Pandora
-look) is the default. **Mediterranean** is optional:
-
-- A sun-bleached limestone terrace seen from above, with soft olive-leaf shade. The
-  lotus floats over a still plunge pool with entry steps and a slow web of light.
-- The page steps down three shallow ledges to a second pool at the footer. Panels
-  are frosted glass slabs lying on the stone.
-- At night the pool is lit from below and there is no leaf shade.
-
-Switching:
-
-- `index.html?look=med` turns Mediterranean on; `index.html?look=classic` turns it off.
-- The choice sticks for the rest of the visit (`sessionStorage`, key `nds-look`)
-  and carries over to the resume page.
-
-`compare.html` shows both looks side by side, with light/dark, home/resume and
-desktop/phone switches, synced scrolling, and keys 1 / 2 to focus one look,
-F to flip, Esc for both.
-
-The look lives only in `med.css`, `med.js` and `assets/med/` (generated textures).
-To make it the only look, add `class="look-med"` to the `<html>` tag on both pages.
-To remove it, delete those three and the two include lines on each page (the
-`med.css` link and the `med.js` script). Printing (the resume PDF) always uses Classic.
 
 ## Filling the empty image spots
 
